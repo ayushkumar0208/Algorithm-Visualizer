@@ -1,0 +1,14 @@
+.upperelementsblocks{
+        background-color: rgb(247, 246, 246);
+        width:fit-content;
+        padding: 0.7vw;
+        border: 1vw;
+        box-shadow: 0 0 1vw rgb(208, 207, 207);
+        border-style: solid;
+        border-width:0.18vw;
+        border-top: none;
+        border-radius: 0.7vw;
+        position: relative;
+        margin-left: 0.9vw;
+        margin-bottom: none;
+}

@@ -1,0 +1,100 @@
+.Home-main-activity{
+    display: flex;
+}
+.Home-workspace{
+    width:80vw;
+    height: 80vh;
+    margin: 1vw;
+    padding: 0.5vw;
+    background-color: rgb(244, 244, 244);
+    border-radius: 1vw;
+}
+.Panel{
+    margin:1vw;
+    width:15vw;
+    height:82vh;
+    background-color: rgb(211, 211, 210);
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    align-items: center;
+    /* position: relative; */
+}
+#ku{
+    z-index: 9;
+}
+#Array-option-button{
+    width:6.5vw;
+    padding: 0.25vw;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.Panel-Section-1{
+    /* background-color: aquamarine; */
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.DropDownArray{
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-evenly;
+    top: '#';
+    margin-top: 0.5vw;
+    width:6vw;
+    border-radius: 1vw;
+    padding:0.25vw;
+    background-color: rgb(241, 239, 239);
+    z-index: 999;
+    position: fixed;
+}
+#DropDownArray-length{
+    font-size: 1vw;
+    width:80%;
+    height:1.5vw;
+    text-align: center;
+    display:flex;
+    align-self: center;
+    justify-self: center;
+    margin-top: 0.5vw;
+    border-radius: 0.5vw;
+    border: none;
+    background-color: rgb(221, 220, 220);
+}
+
+#DropDownArray-separator{
+    width:100%;
+    background-color: black;
+    
+}
+.DropDownArray-options{
+    font-size: 0.85vw;
+    list-style-type:none
+}
+.DropDownArray-option{
+    /* width:4vw; */
+    margin: 0.25vw;
+    background-color: rgb(221, 220, 220);
+    border-radius: 0.5vw;
+    /* text-align: center; */
+    padding: 0.25vw;
+    height: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: 0.6s;
+    border: 1px solid rgb(221, 220, 220);
+}
+.DropDownArray-option:hover{
+    /* scale: 5%; */
+    background-color: rgb(251, 251, 251);
+    border: 1px solid rgb(12, 12, 12);
+}

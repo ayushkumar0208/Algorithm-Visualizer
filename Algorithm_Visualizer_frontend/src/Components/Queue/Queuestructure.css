@@ -1,0 +1,92 @@
+.maincontainer0{
+    width: fit-content;
+    margin: 2vw;
+    align-items: center;
+}
+.stackblock0{
+    background-color: rgb(247, 246, 246);
+    width:fit-content;
+    padding: 0.7vw;
+    border: 1vw;
+    box-shadow: 0 0 1vw rgb(208, 207, 207);
+    border-style: solid;
+    border-width:0.18vw;
+    border-left: none;
+    border-right: none;
+    border-radius: 0.7vw;
+    border-bottom-right-radius: 0vw;
+    border-top-right-radius: 0vw;
+    border-bottom-left-radius: 0vw;
+    border-top-left-radius: 0vw;
+    position: relative;
+    margin-left: 2vw;
+    margin-bottom: 0.2vw;
+    display: flex;
+    height: 3.3vw;
+}
+.individualstackblock0{
+    background-color: rgb(232, 231, 231);
+    padding: 0.5vw;
+    border-radius: 0.4vw;
+    width: 4.5vw;
+    margin-left: 0.3vw;
+    text-align: center;
+}
+.break10{
+    width: 0.5vw;
+}
+.pushpopbutton0{
+    margin-top: 0.3vw;
+    display: flex;
+    width: fit-content;
+    margin-left: -0.3vw;
+}
+.but0{
+    background-color: white;
+    width: fit-content;height: 2.5vw;
+    margin-left: 0.1vw;
+    border: none;
+}
+.but0:hover{
+    cursor:pointer;
+}
+.butpop20{
+    background-color: white;
+    width: fit-content;height: 2.5vw;
+    margin-left: 0.1vw;
+    border-color: red;
+    border-radius: 0.5vw;
+    font-weight: 650;
+}
+.butpop20:hover{
+    cursor:pointer;
+}
+.keyvalues0{
+    margin-top: -0.1vw;
+    margin-bottom: -0.2vw;
+    width: fit-content;
+    background-color: white;
+}
+.UserInput0{
+    width: 5vw;
+    display: none;
+}
+.Inputarea0{
+    display:grid;
+}
+#inputvalue0{
+    width: 4.4vw;
+    margin-left: 0.0vw;
+    border: 0.2vw solid gold;
+    border-radius: 0.2vw;
+}
+.submitarea0{
+    display: flex;
+    margin-left: -0.5vw;
+}
+.but20{
+    margin-left: 0.5vw;
+}
+#butpop0{
+    border-color: red;
+}

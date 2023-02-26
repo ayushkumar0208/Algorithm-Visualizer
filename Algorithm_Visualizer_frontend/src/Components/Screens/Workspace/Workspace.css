@@ -1,0 +1,36 @@
+.Workspace{
+    width:100%;
+    /* background-color: antiquewhite; */
+    height:100%;
+    background-color: rgb(244, 244, 244);
+    /* padding:1vw; */
+    overflow: scroll;
+}
+::-webkit-scrollbar {
+    /* width: 10px; */
+    margin: 0%;
+    width: 0.5vw;
+    height:0.5vw;
+  }
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+    width: 2vw;
+    height:2vw;
+  }
+  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #d8d6d6;
+    border-radius: 99px;
+    width: 2vw;
+    height:2vw;
+  }
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b0b0b0;
+    width: 2vw;
+    height:2vw;
+  }
