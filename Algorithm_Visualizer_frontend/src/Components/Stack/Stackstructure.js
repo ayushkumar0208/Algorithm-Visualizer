@@ -52,6 +52,14 @@ export default function Stackstructure(props){
     
   };
 
+  // const createNewStack = () => {
+  //   props.setState({
+  //     ...props.state,
+  //    typeOfStack:null,
+  //   });
+  //   console.log(props.typeOfStack);
+  // };
+
 
 
   return (
@@ -84,6 +92,7 @@ export default function Stackstructure(props){
        {/* <p>peek:{peek()}</p>
        <p>length: {length}</p> */}
        {/* <p>length: {length}</p> */}
+       {/* {createNewStack()} */}
     </div>
        
     </div></Draggable>);

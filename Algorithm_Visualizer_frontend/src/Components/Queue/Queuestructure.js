@@ -7,6 +7,7 @@ import './Queuestructure.css';
 //import Pushpopbut from './pushpopbut';
 // import pushbutton from './Queueassets/pushbutton.png'
 // import popbutton from './Queueassets/popbutton.png'
+import Draggable from "react-draggable";
 
 export default function Queuestructure(props){
     
@@ -43,6 +44,7 @@ export default function Queuestructure(props){
 
 
   return (
+    <Draggable handle="#handle" bounds={{ left: 0 }}>
     <div className="maincontainer0">
     <div className="stackblock0">
        {stack.map((item,index) => {
@@ -67,7 +69,7 @@ export default function Queuestructure(props){
        <p>length: {length}</p> */}
        {/* <p>length: {length}</p> */}
     </div>
-       
-    </div>);
+    <img id="handle" src="/drag-indicator.png" alt="pan-icon" />
+    </div></Draggable>);
 }
 
