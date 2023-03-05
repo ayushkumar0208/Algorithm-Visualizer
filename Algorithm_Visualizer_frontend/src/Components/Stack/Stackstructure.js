@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 //import Stackupperelements from '../../Elements/Stack/Stackupperelements';
 import './Stackstructure.css'
-import '../../Elements/Stack/Stackupperelements.css';
+// import '../../Elements/Stack/Stackupperelements.css';
 import Draggable from "react-draggable";
 
 
@@ -16,9 +16,12 @@ export default function Stackstructure(props){
     if (inputValue === '') {
         return;
       }
+      // stack.slice().reverse()
       setStack([...stack, inputValue]);
       setInputValue('');
+      
   };
+  console.log(stack)
 
   const popItem = () => {
     if (stack.length === 0) {

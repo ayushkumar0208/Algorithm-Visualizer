@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Workspace.css";
 import Array from "../../Array/Array";
 import axios from "axios";
+import Stackstructure from "../../Stack/Stackstructure";
 
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
+  const [stack,setStack] = useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
@@ -14,6 +16,7 @@ function Workspace(props) {
       .then((response) => response.json())
       .then((result) => {
         setArrays(result[0].Arrays);
+        setStack(result[0].Stacks);
       });
   });
 
@@ -41,6 +44,9 @@ function Workspace(props) {
       {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
       {arr.map((element,index) => {
         return <Array array={element} arrayIndex={index} allArrays={arr}/>;
+      })}
+      {stack.map((element,index) => {
+        return <Stackstructure stackIndex={index} stack={element}/>;
       })}
     </div>
   );

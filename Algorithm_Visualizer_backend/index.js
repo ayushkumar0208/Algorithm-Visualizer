@@ -28,6 +28,9 @@ const WorkSpaceSchema = new mongoose.Schema(
     Arrays: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
+    Stacks:{
+      type: [[mongoose.Schema.Types.Mixed]]
+    }
   },
   { timestamps: true }
 );
@@ -98,6 +101,21 @@ app.post("/updateAddNewArray", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
     { $push: { Arrays: req.body } },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+app.post("/updateAddNewStack", (req, res) => {
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { Stacks: []} },
     (err, result) => {
       if (err) {
         res.send(err);

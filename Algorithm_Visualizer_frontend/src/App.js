@@ -9,9 +9,6 @@ function App() {
     <div className="App">
       <h1>Algorithm Visualizer</h1>
       <Panel/>
-      {/* <Stack/>
-      <Stackstructure/>
-      <Queuestructure/> */}
     </div>
   );
 
