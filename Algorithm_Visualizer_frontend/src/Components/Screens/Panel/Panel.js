@@ -182,7 +182,7 @@ function Panel(props) {
           </div>
         </div>
         <div className="Home-workspace">
-          {console.log(state.lengthOfArray)}
+          {/* {console.log(state.lengthOfArray)} */}
           {console.log(state.typeOfStack)}
           <Workspace
             typeOfArray={state.typeOfArray}

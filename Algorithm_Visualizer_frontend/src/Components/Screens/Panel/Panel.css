@@ -54,7 +54,7 @@
     padding:0.25vw;
     background-color: rgb(241, 239, 239);
     z-index: 999;
-    position: fixed;
+    position: relative;
 }
 #DropDownArray-length{
     font-size: 1vw;
