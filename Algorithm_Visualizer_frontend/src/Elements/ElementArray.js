@@ -32,9 +32,8 @@ class ElementArray extends React.Component{
     // <Draggable>
     <div className="ElementArray" style={{'width': this.props.dataType==="Integer"? '3vw':this.props.dataType==="String"? '5.3vw':'4.7vw'}}>
       <p id="ElementArray_value">
-        {/* {console.log(this.state.typeOfArray)} */}
+        {console.log(this.props.dataType)}
         {this.props.dataType==="Integer" && (<input
-        oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
