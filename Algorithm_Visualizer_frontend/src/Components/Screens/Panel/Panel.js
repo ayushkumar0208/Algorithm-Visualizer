@@ -67,7 +67,7 @@ function Panel(props) {
                     placeholder="Length"
                     name="lengthOfArray"
                     onChange={handleArrayLengthChange}
-                  />
+                   required/>
                   <hr id="DropDownArray-separator" />
                   <div className="DropDownArray-options">
                     <div
@@ -183,7 +183,7 @@ function Panel(props) {
         </div>
         <div className="Home-workspace">
           {/* {console.log(state.lengthOfArray)} */}
-          {console.log(state.typeOfStack)}
+          {console.log(state.typeOfArray)}
           <Workspace
             typeOfArray={state.typeOfArray}
             setState={setState}

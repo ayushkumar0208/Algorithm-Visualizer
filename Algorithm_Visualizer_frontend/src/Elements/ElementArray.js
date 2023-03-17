@@ -8,7 +8,8 @@ class ElementArray extends React.Component{
   // const [value, setValue] = useState(props.value);
   state = {
     value:this.props.value,
-    currentArray:this.props.array
+    currentArray:this.props.array,
+    typeOfArray:this.props.typeOfArray
   } 
   handleValueChange = (e) => {
     const newValue = e.target.value;
@@ -31,8 +32,8 @@ class ElementArray extends React.Component{
     // <Draggable>
     <div className="ElementArray">
       <p id="ElementArray_value">
-        {/* {" "} */}
-        <input
+        {/* {console.log(this.state.typeOfArray)} */}
+        {<input
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
@@ -40,7 +41,7 @@ class ElementArray extends React.Component{
           id="array-value"
           name="array-value"
           placeholder="0"
-        />
+        />}
       </p>
       <p id="ElementArray_index">{this.props.index}</p>
       {/* {console.log(this.props.updateSortArray)} */}

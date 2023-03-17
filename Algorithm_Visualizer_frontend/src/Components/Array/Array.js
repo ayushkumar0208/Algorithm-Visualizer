@@ -13,8 +13,9 @@ function Array(props) {
   // componentDidUpdate(){
     // console.log(props.array)
     // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
+    // console.log(props.typeOfArray)
   var indents = props.array.map((i, index) => (
-    <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex}/>
+    <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray}/>
   ))
   // useEffect(() => {
   //   // console.log("teri maa ki")

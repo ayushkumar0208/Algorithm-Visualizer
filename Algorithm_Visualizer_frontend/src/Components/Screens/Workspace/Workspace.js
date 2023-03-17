@@ -25,9 +25,12 @@ function Workspace(props) {
       });
   });
 
+  // console.log(ArrayOfType)
+
   const createNewArray = () => {
     console.log(props.typeOfArray);
-
+    // var ArrayOfType=props.typeOfArray
+    // console.log(ArrayOfType)
     props.setState({
       ...props.state,
       typeOfArray: null,
@@ -57,15 +60,20 @@ function Workspace(props) {
   
   return (
     <div className="Workspace">
+      
        {(props.typeOfStack!==null && <Stackstructure/>)}
 
       {(props.typeOfQueue!==null && <Queuestructure/>)}
+        
+        {/* {console.log(props.typeOfArray)} */}
+              
+      {/* {console.log(ArrayOfType)} */}
 
-      {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
       {arr.map((element,index) => {
         return <Array array={element} arrayIndex={index} allArrays={arr}/>;
       })}
-     
+              {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
+
 
     </div>
   );
