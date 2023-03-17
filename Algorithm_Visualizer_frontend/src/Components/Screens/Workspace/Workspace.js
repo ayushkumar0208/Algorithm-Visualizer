@@ -23,16 +23,21 @@ function Workspace(props) {
       });
   });
 
+  // console.log(ArrayOfType)
+
   const createNewArray = () => {
     console.log(props.typeOfArray);
-
+    // var ArrayOfType=props.typeOfArray
+    // console.log(ArrayOfType)
     props.setState({
       ...props.state,
       typeOfArray: null,
     });
+
     const arrayToAdd = [];
+   
     for (var i = 0; i < Math.min(props.lengthOfArray, 10); i++) {
-      arrayToAdd.push(0);
+      arrayToAdd.push(null);
     }
 
     axios
@@ -44,6 +49,15 @@ function Workspace(props) {
     console.log(props.lengthOfArray);
   };
 
+  // const arraytypefunc=()=>{
+  //   if(props.typeOfArray!=null){
+  //   const arraytype=props.typeOfArray;
+  //   arraytypes.push(arraytype);
+  //   console.log('array type'+arraytypes[0])
+  //   }
+  // };
+    // console.log('array type outside '+arraytypes[0])
+   
   // const createNewStack = () => {
   //   console.log(props.typeOfStack);
   //   props.setState({
@@ -95,12 +109,13 @@ function Workspace(props) {
       {/* {(props.typeOfQueue!==null && <Queuestructure/>)} */}
 
 
+      {/* {props.typeOfArray !== null && arraytypefunc()} */}
       {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
 
-
-
+       {/* {console.log('array type now: '+arraytypes[0])} */}
+       {/* {    console.log(props.typeOfArray)} */}
       {arr.map((element,index) => {
-        return <Array array={element} arrayIndex={index} allArrays={arr}/>;
+        return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]}/>;
       })}
       {stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack}/>;
