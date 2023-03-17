@@ -25,6 +25,9 @@ const WorkSpaceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    ArrayTypes:{
+      type:[String],
+    },
     Arrays: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
@@ -32,7 +35,7 @@ const WorkSpaceSchema = new mongoose.Schema(
       type: [[mongoose.Schema.Types.Mixed]]
     }
   },
-  { timestamps: true }
+  { timestamps: true } 
 );
 
 const WorkSpace = mongoose.model("WorkSpace", WorkSpaceSchema);
@@ -100,6 +103,21 @@ app.post("/updateAddNewArray", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
     { $push: { Arrays: req.body } },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/updateAddNewArrayType/:field", (req, res) => {
+  var dataType = req.params.field;
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { ArrayTypes: dataType } },
     (err, result) => {
       if (err) {
         res.send(err);

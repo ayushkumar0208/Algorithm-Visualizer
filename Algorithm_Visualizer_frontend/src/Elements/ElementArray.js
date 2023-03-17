@@ -30,10 +30,11 @@ class ElementArray extends React.Component{
     
   return (
     // <Draggable>
-    <div className="ElementArray">
+    <div className="ElementArray" style={{'width': this.props.dataType==="Integer"? '3vw':this.props.dataType==="String"? '5.3vw':'4.7vw'}}>
       <p id="ElementArray_value">
         {/* {console.log(this.state.typeOfArray)} */}
-        {<input
+        {this.props.dataType==="Integer" && (<input
+        oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
@@ -41,7 +42,26 @@ class ElementArray extends React.Component{
           id="array-value"
           name="array-value"
           placeholder="0"
-        />}
+        />)}
+        {this.props.dataType==="String" && (<input
+          onChange={this.handleValueChange}
+          value={this.state.value}
+          type="text"
+          autoComplete="off"
+          id="array-value"
+          name="array-value"
+          placeholder="' '"
+        />)}
+        {this.props.dataType==="Double" && (<input
+          oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
+          onChange={this.handleValueChange}
+          value={this.state.value}
+          type="number"
+          autoComplete="off"
+          id="array-value"
+          name="array-value"
+          placeholder="0.0"
+        />)}
       </p>
       <p id="ElementArray_index">{this.props.index}</p>
       {/* {console.log(this.props.updateSortArray)} */}

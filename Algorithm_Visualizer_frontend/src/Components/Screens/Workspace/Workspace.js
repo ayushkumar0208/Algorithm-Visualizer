@@ -3,13 +3,12 @@ import "./Workspace.css";
 import Array from "../../Array/Array";
 import axios from "axios";
 import Stackstructure from "../../Stack/Stackstructure";
-// import Queuestructure from "../../Queue/Queuestructure";
+import Queuestructure from "../../Queue/Queuestructure";
 
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
   const [stack,setStack] = useState([]);
 
-  const [arraytypes,setarraytypes]=useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
@@ -33,9 +32,11 @@ function Workspace(props) {
       ...props.state,
       typeOfArray: null,
     });
+
     const arrayToAdd = [];
+   
     for (var i = 0; i < Math.min(props.lengthOfArray, 10); i++) {
-      arrayToAdd.push(0);
+      arrayToAdd.push(null);
     }
 
     axios
@@ -95,13 +96,26 @@ function Workspace(props) {
   // }
   return (
     <div className="Workspace">
+       {/* <div
+      ref={whiteboardRef}
+      className="whiteboard"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseOut={handleMouseUp}
+    /> */}
+    <Queuestructure/>
+      {/* {(props.typeOfStack!==null && <Stackstructure/>)} */}
+      {(props.typeOfQueue!==null && <Queuestructure/>)}
+
+
       {/* {props.typeOfArray !== null && arraytypefunc()} */}
       {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
 
        {/* {console.log('array type now: '+arraytypes[0])} */}
-
+       {/* {    console.log(props.typeOfArray)} */}
       {arr.map((element,index) => {
-        return <Array array={element} arrayIndex={index} allArrays={arr} arrayType={arraytypes[{index}]}/>;
+        return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]}/>;
       })}
       {stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack}/>;
