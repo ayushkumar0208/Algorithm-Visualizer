@@ -34,7 +34,6 @@ class ElementArray extends React.Component{
       <p id="ElementArray_value">
         {/* {console.log(this.state.typeOfArray)} */}
         {this.props.dataType==="Integer" && (<input
-        oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
