@@ -92,7 +92,7 @@ function Workspace(props) {
       onMouseOut={handleMouseUp}
     /> */}
       {/* {(props.typeOfStack!==null && <Stackstructure/>)} */}
-      {(props.typeOfQueue!==null && <Queuestructure/>)}
+      {/* {(props.typeOfQueue!==null && <Queuestructure/>)} */}
 
 
       {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
