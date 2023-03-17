@@ -28,7 +28,9 @@ export default function Queuestructure(props){
         return;
       }
       const newStack = [...stack];
+      newStack.reverse();
       newStack.pop();
+      newStack.reverse();
       setStack(newStack);
   };
 

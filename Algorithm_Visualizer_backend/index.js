@@ -96,7 +96,6 @@ app.post("/updateArrayIndex/:field/:value", (req, res) => {
 );
 
 app.post("/updateAddNewArray", (req, res) => {
-  const { Arrays } = req.body;
   console.log(req.body);
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
@@ -125,6 +124,40 @@ app.post("/updateAddNewStack", (req, res) => {
     }
   );
 });
+
+app.post("/updateStack", (req, res) => {
+  console.log(req.body)
+
+  WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
+});
+
+app.post("/updateStack/:index", (req, res) => {
+  //                       👇 Index of value to update
+  //Here field => Arrays.1.0
+  //                     👆ArrayIndex 
+  var indexValue = req.params.index;
+
+  var newField = {};
+  newField[indexValue]=req.body;
+
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    {$set:newField},
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );}
+);
 
 
 

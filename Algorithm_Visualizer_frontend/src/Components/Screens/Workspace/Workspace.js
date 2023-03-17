@@ -50,19 +50,59 @@ function Workspace(props) {
   //   });
   //   console.log(props.typeOfStack);
   // };
-  
+
+  // const [isDrawing, setIsDrawing] = useState(false);
+  // const whiteboardRef = useRef(null);
+
+  // function handleMouseDown(e) {
+  //   setIsDrawing(true);
+  //   const dot = createDot(e.clientX, e.clientY);
+  //   whiteboardRef.current.appendChild(dot);
+  // }
+
+  // function handleMouseMove(e) {
+  //   if (isDrawing) {
+  //     const dot = createDot(e.clientX, e.clientY);
+  //     whiteboardRef.current.appendChild(dot);
+  //   }
+  // }
+
+  // function handleMouseUp(e) {
+  //   setIsDrawing(false);
+  // }
+
+  // function createDot(x, y) {
+  //   const whiteboardRect = whiteboardRef.current.getBoundingClientRect();
+  //   const dot = document.createElement('div');
+  //   dot.classList.add('dot');
+  //   dot.style.left = `${x - whiteboardRect.left}px`;
+  //   dot.style.top = `${y - whiteboardRect.top}px`;
+  //   return dot;
+  // }
   return (
     <div className="Workspace">
-       {(props.typeOfStack!==null && <Stackstructure/>)}
-
+       {/* <div
+      ref={whiteboardRef}
+      className="whiteboard"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseOut={handleMouseUp}
+    /> */}
+    {/* <Queuestructure/> */}
+      {(props.typeOfStack!==null && <Stackstructure/>)}
       {(props.typeOfQueue!==null && <Queuestructure/>)}
 
+
       {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
+
+
+
       {arr.map((element,index) => {
         return <Array array={element} arrayIndex={index} allArrays={arr}/>;
       })}
       {stack.map((element,index) => {
-        return <Stackstructure stackIndex={index} stack={element}/>;
+        return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack}/>;
       })}
     </div>
   );
