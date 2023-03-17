@@ -26,12 +26,15 @@ const WorkSpaceSchema = new mongoose.Schema(
       required: true,
     },
     ArrayTypes:{
-      type:[String],
+      type: [String]
     },
     Arrays: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
     Stacks:{
+      type: [[mongoose.Schema.Types.Mixed]]
+    }, 
+    Queues:{
       type: [[mongoose.Schema.Types.Mixed]]
     }
   },
@@ -112,6 +115,20 @@ app.post("/updateAddNewArray", (req, res) => {
     }
   );
 });
+app.post("/updateAddNewArrayType/:field", (req, res) => {
+  var dataType = req.params.field;
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { ArrayTypes: dataType } },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.post("/updateAddNewArrayType/:field", (req, res) => {
   var dataType = req.params.field;
@@ -143,7 +160,7 @@ app.post("/updateAddNewStack", (req, res) => {
   );
 });
 
-app.post("/updateStack", (req, res) => {
+app.post("/updateStackAfterDelete", (req, res) => {
   console.log(req.body)
 
   WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
@@ -178,6 +195,53 @@ app.post("/updateStack/:index", (req, res) => {
 );
 
 
+app.post("/updateAddNewQueue", (req, res) => {
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { Queues: []} },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/updateQueue/:index", (req, res) => {
+  //                       👇 Index of value to update
+  //Here field => Arrays.1.0
+  //                     👆ArrayIndex 
+  var indexValue = req.params.index;
+
+  var newField = {};
+  newField[indexValue]=req.body;
+
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    {$set:newField},
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );}
+);
+
+app.post("/updateQueueAfterDelete", (req, res) => {
+  console.log(req.body)
+
+  WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
+});
 
 app.listen(8800, () => {
   console.log("Port 8800");
