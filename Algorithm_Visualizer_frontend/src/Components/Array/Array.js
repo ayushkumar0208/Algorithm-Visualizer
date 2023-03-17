@@ -13,7 +13,7 @@ function Array(props) {
   // componentDidUpdate(){
     // console.log(props.array)
     // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
-    // console.log(props.typeOfArray)
+    // console.log(props.arrayType)
   var indents = props.array.map((i, index) => (
     <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray}/>
   ))

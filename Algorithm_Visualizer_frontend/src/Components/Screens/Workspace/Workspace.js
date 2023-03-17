@@ -3,16 +3,13 @@ import "./Workspace.css";
 import Array from "../../Array/Array";
 import axios from "axios";
 import Stackstructure from "../../Stack/Stackstructure";
-import Queuestructure from "../../Queue/Queuestructure";
+// import Queuestructure from "../../Queue/Queuestructure";
 
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
-  // useEffect(() => {
-  //   props.setState({
-  //     ...props.state,
-  //     typeOfStack: null,
-  //   });
-  // }, [props,props.setState]);
+  const [stack,setStack] = useState([]);
+
+  const [arraytypes,setarraytypes]=useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
@@ -22,6 +19,7 @@ function Workspace(props) {
       .then((response) => response.json())
       .then((result) => {
         setArrays(result[0].Arrays);
+        setStack(result[0].Stacks);
       });
   });
 
@@ -49,6 +47,15 @@ function Workspace(props) {
     console.log(props.lengthOfArray);
   };
 
+  // const arraytypefunc=()=>{
+  //   if(props.typeOfArray!=null){
+  //   const arraytype=props.typeOfArray;
+  //   arraytypes.push(arraytype);
+  //   console.log('array type'+arraytypes[0])
+  //   }
+  // };
+    // console.log('array type outside '+arraytypes[0])
+   
   // const createNewStack = () => {
   //   console.log(props.typeOfStack);
   //   props.setState({
@@ -57,24 +64,48 @@ function Workspace(props) {
   //   });
   //   console.log(props.typeOfStack);
   // };
-  
+
+  // const [isDrawing, setIsDrawing] = useState(false);
+  // const whiteboardRef = useRef(null);
+
+  // function handleMouseDown(e) {
+  //   setIsDrawing(true);
+  //   const dot = createDot(e.clientX, e.clientY);
+  //   whiteboardRef.current.appendChild(dot);
+  // }
+
+  // function handleMouseMove(e) {
+  //   if (isDrawing) {
+  //     const dot = createDot(e.clientX, e.clientY);
+  //     whiteboardRef.current.appendChild(dot);
+  //   }
+  // }
+
+  // function handleMouseUp(e) {
+  //   setIsDrawing(false);
+  // }
+
+  // function createDot(x, y) {
+  //   const whiteboardRect = whiteboardRef.current.getBoundingClientRect();
+  //   const dot = document.createElement('div');
+  //   dot.classList.add('dot');
+  //   dot.style.left = `${x - whiteboardRect.left}px`;
+  //   dot.style.top = `${y - whiteboardRect.top}px`;
+  //   return dot;
+  // }
   return (
     <div className="Workspace">
-      
-       {(props.typeOfStack!==null && <Stackstructure/>)}
+      {/* {props.typeOfArray !== null && arraytypefunc()} */}
+      {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
 
-      {(props.typeOfQueue!==null && <Queuestructure/>)}
-        
-        {/* {console.log(props.typeOfArray)} */}
-              
-      {/* {console.log(ArrayOfType)} */}
+       {/* {console.log('array type now: '+arraytypes[0])} */}
 
       {arr.map((element,index) => {
-        return <Array array={element} arrayIndex={index} allArrays={arr}/>;
+        return <Array array={element} arrayIndex={index} allArrays={arr} arrayType={arraytypes[{index}]}/>;
       })}
-              {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
-
-
+      {stack.map((element,index) => {
+        return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack}/>;
+      })}
     </div>
   );
 }
