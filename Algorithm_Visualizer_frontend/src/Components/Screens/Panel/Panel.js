@@ -73,6 +73,7 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
+                        
                         setState({ ...state, typeOfArray: "Integer" })
                       }
                     >

@@ -8,6 +8,7 @@ import Queuestructure from "../../Queue/Queuestructure";
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
   const [stack,setStack] = useState([]);
+  const [queue,setQueue] = useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
@@ -18,6 +19,7 @@ function Workspace(props) {
       .then((result) => {
         setArrays(result[0].Arrays);
         setStack(result[0].Stacks);
+        setQueue(result[0].Queues)
       });
   });
 
@@ -89,8 +91,7 @@ function Workspace(props) {
       onMouseUp={handleMouseUp}
       onMouseOut={handleMouseUp}
     /> */}
-    <Queuestructure/>
-      {(props.typeOfStack!==null && <Stackstructure/>)}
+      {/* {(props.typeOfStack!==null && <Stackstructure/>)} */}
       {(props.typeOfQueue!==null && <Queuestructure/>)}
 
 
@@ -103,6 +104,9 @@ function Workspace(props) {
       })}
       {stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack}/>;
+      })}
+      {queue.map((element,index) => {
+        return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
       })}
     </div>
   );
