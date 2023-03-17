@@ -13,8 +13,9 @@ function Array(props) {
   // componentDidUpdate(){
     // console.log(props.array)
     // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
+    // console.log("In array file: "+props.dataType)
   var indents = props.array.map((i, index) => (
-    <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex}/>
+    <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
   ))
   // useEffect(() => {
   //   // console.log("teri maa ki")
@@ -40,6 +41,14 @@ function Array(props) {
     console.log(props.allArrays)
     axios.post("http://localhost:8800/updateArray",ArrayObject).then((response) => {
       console.log("Array Deleted")
+    })
+    if (props.arrayIndex > -1) { // only splice array when item is found
+      props.arrayTypes.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
+    }
+    var ArrayTypeObject={};
+    ArrayTypeObject['ArrayTypes']=props.arrayTypes;
+    axios.post("http://localhost:8800/updateArray",ArrayTypeObject).then((response) => {
+      console.log("Arraytype Deleted")
     })
   }
  const reverseArray = () => {
