@@ -89,7 +89,7 @@ function Workspace(props) {
       onMouseUp={handleMouseUp}
       onMouseOut={handleMouseUp}
     /> */}
-    {/* <Queuestructure/> */}
+    <Queuestructure/>
       {(props.typeOfStack!==null && <Stackstructure/>)}
       {(props.typeOfQueue!==null && <Queuestructure/>)}
 

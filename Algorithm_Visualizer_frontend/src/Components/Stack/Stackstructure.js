@@ -79,12 +79,15 @@ export default function Stackstructure(props) {
         </div>
 
         <div className="maincontainer-stack">
-          <div className="stackblock">{indents}</div>
+          {props.stack.length===0? (<div className="stackblock" id="empty-block-stack">Empty</div>):(
+            <div className="stackblock">{indents}</div>
+          )}
+          
             <div className="Inputarea">
               <form className="submitarea" onSubmit={handleSubmit}>
 
                     <img
-                      id="push-button"
+                      id="push-button-Stack"
                       onClick={pushItem}
                       src="/plus-512.webp"
                       alt="Push button"
@@ -96,9 +99,10 @@ export default function Stackstructure(props) {
                     value={inputValue}
                     onChange={handleChange}
                     autoComplete="off"
+                    placeholder="'Add to Stack"
                   />
                   <img
-                  id="pop-button"
+                  id="pop-button-Stack"
                     onClick={popItem}
                     src="/popbutton.png"
                     alt="Push button"
