@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./Array.css";
 import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
@@ -14,9 +14,25 @@ function Array(props) {
     // console.log(props.array)
     // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
     // console.log("In array file: "+props.dataType)
-  var indents = props.array.map((i, index) => (
-    <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
-  ))
+    
+    useEffect(() => {
+      fetch("http://localhost:8800/Workspace/Structures", {
+        method: "GET",
+        headers: { Accept: "application/json" },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          props.setArrays(result[0].Arrays);
+          // console.log(props.array)
+        });
+        // indents = props.array.map((i, index) => (
+        //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
+        // ))
+    });
+    var indents = props.array.map((i, index) => (
+      <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
+    ))
+  
   // useEffect(() => {
   //   // console.log("teri maa ki")
   //   indents = props.array.map((i, index) => (
@@ -30,7 +46,14 @@ function Array(props) {
   // }
 
   const deleteArray = () => {
-    
+    if (props.arrayIndex > -1) { // only splice array when item is found
+      props.arrayTypes.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
+    }
+    var ArrayTypeObject={};
+    ArrayTypeObject['ArrayTypes']=props.arrayTypes;
+    axios.post("http://localhost:8800/updateArray",ArrayTypeObject).then((response) => {
+      console.log("Arraytype Deleted")
+    })
 
     // const index = props.allArrays.indexOf(props.arrayIndex);
     if (props.arrayIndex > -1) { // only splice array when item is found
@@ -41,14 +64,6 @@ function Array(props) {
     console.log(props.allArrays)
     axios.post("http://localhost:8800/updateArray",ArrayObject).then((response) => {
       console.log("Array Deleted")
-    })
-    if (props.arrayIndex > -1) { // only splice array when item is found
-      props.arrayTypes.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
-    }
-    var ArrayTypeObject={};
-    ArrayTypeObject['ArrayTypes']=props.arrayTypes;
-    axios.post("http://localhost:8800/updateArray",ArrayTypeObject).then((response) => {
-      console.log("Arraytype Deleted")
     })
   }
  const reverseArray = () => {
