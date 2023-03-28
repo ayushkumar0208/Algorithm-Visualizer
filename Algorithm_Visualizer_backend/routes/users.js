@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
 			token: crypto.randomBytes(32).toString("hex"),
 		}).save();
 		const url = user.otp;
-		await sendEmail(user.email, "Verify Email", url);
+		await sendEmail(user.email, "Verify OTP", url);
 
 		res
 			.status(201)
