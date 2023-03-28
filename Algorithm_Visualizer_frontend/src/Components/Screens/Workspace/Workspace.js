@@ -69,7 +69,6 @@ function Workspace(props) {
   //       console.log("Stack added successfully");
   //     });
   // };
-  
 
 
   return (
@@ -82,6 +81,7 @@ function Workspace(props) {
         return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]} setArrays={setArrays} />;
       })}
       
+
       {stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack} stackTypes={props.stackTypes} dataType={props.stackTypes[index]}/>;
       })}

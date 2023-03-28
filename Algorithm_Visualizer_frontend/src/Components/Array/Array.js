@@ -1,22 +1,23 @@
-import React, { useEffect,useState } from "react";
+import React from "react";
 import "./Array.css";
 // import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
 import axios from "axios";
-import "../../Elements/ElementArray.css";
+// import "../../Elements/ElementArray.css";
 
 function Array(props) {
-  const [currentArray,setCurrentArray]=useState([])
+  // const [currentArray,setCurrentArray]=useState([])
 
-  useEffect(() => {
-    axios.get("http://localhost:8800/Workspace/Structures")
+  // useEffect(() => {
+  //   axios.get("http://localhost:8800/Workspace/Structures")
 
-      .then((result) => {
-        // console.log(result)
-        // console.log(result.data[0].Arrays[props.arrayIndex])
-        setCurrentArray(result.data[0].Arrays[props.arrayIndex]);
-      });
-  });
+  //     .then((result) => {
+  //       // console.log(result)
+  //       // console.log(result.data[0].Arrays[props.arrayIndex])
+  //       setCurrentArray(result.data[0].Arrays[props.arrayIndex]);
+  //     });
+  // });
+
   // componentDidMount() {
   //   this.indents = this.props.array.map((i, index) => (
   //     <ElementArray value={i} index={index} array={this.props.array} />
@@ -95,7 +96,7 @@ function Array(props) {
       .then((response) => {
         console.log("Array Reversed");
       });
-    window.location.reload(true);
+    // window.location.reload(true);
   };
   const sortArray = () => {
     props.array.sort((a, b) => a - b);
@@ -108,7 +109,7 @@ function Array(props) {
         console.log("Array Sorted");
       });
     // window.refres
-    window.location.reload(true);
+    // window.location.reload(true);
   };
   const handleValueChange = (e,elementIndex) => {
     // const newValue = e.target.value;
@@ -116,9 +117,10 @@ function Array(props) {
     // // setValue(newValue);
     // this.setState({ value:e.target.value })
     // this.state.value = e.target.value;
-    const newArray=[...currentArray]
-    newArray[elementIndex] =e.target.value
-    setCurrentArray(newArray)
+    const newArray=[...props.allArrays[props.arrayIndex]]
+    console.log(newArray)
+    newArray[elementIndex] = e.target.value
+    // props.setArrays(newArray)
 
     axios.post("http://localhost:8800/updateArrayIndex/Arrays."+props.arrayIndex,newArray).then((response) => {
       console.log("Updated")
@@ -151,7 +153,7 @@ function Array(props) {
         </div>
         <div className="draggable">
           {/* {console.log(props.array)} */}
-          {currentArray && currentArray.map((i, index) => {
+          {props.array.map((i, index) => {
    return <div className="ElementArray" >
    <p id="ElementArray_value">
      {/* {console.log(this.state.typeOfArray)} */}
@@ -159,7 +161,7 @@ function Array(props) {
        <input
 
        onChange={(e)=>handleValueChange(e,index)}
-       value={currentArray[index]}
+       value={props.array[index]}
        type="number"
        autoComplete="off"
        id="array-value"
@@ -170,7 +172,7 @@ function Array(props) {
        <input
        onChange={(e)=>handleValueChange(e,index)}
       //  value={state.value}
-      value={currentArray[index]}
+      value={props.array[index]}
 
        type="text"
        autoComplete="off"
@@ -180,10 +182,9 @@ function Array(props) {
      />
      ):(
        <input
-       oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
        onChange={(e)=>handleValueChange(e,index)}
       //  value={this.state.value}
-      value={currentArray[index]}
+      value={props.array[index]}
        type="number"
        autoComplete="off"
        id="array-value"
