@@ -91,9 +91,7 @@ function Workspace(props) {
       {queue.map((element,index) => {
         return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
       })}
-      {queue.map((element,index) => {
-        return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
-      })}
+     
     </div>
   );
 }
