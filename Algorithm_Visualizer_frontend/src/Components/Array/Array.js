@@ -1,22 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Array.css";
 import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
 import axios from "axios";
 
-class Array extends React.Component {
-  // const [currArr, setCurrentArray] = useState(props.array);
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8800/Workspace/Structures")
-  //     .then((response) => {
-  //       // console.log(response.data[0]);
-  //       setCurrentArray(response.data[0].Arrays[props.arrayIndex]);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // });
+function Array(props) {
   // componentDidMount() {
   //   this.indents = this.props.array.map((i, index) => (
   //     <ElementArray value={i} index={index} array={this.props.array} />
@@ -27,7 +15,31 @@ class Array extends React.Component {
   // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
   // console.log("In array file: "+props.dataType)
 
-  
+  useEffect(() => {
+    fetch("http://localhost:8800/Workspace/Structures", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        props.setArrays(result[0].Arrays);
+        // console.log(props.array)
+      });
+    // indents = props.array.map((i, index) => (
+    //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
+    // ))
+  });
+  var indents = props.array.map((i, index) => (
+    <ElementArray
+      value={i}
+      index={index}
+      array={props.array}
+      arrayIndex={props.arrayIndex}
+      typeOfArray={props.typeOfArray}
+      dataType={props.dataType}
+    />
+  ));
+
   // useEffect(() => {
   //   // console.log("teri maa ki")
   //   indents = props.array.map((i, index) => (
@@ -40,38 +52,37 @@ class Array extends React.Component {
 
   // }
 
-  deleteArray = () => {
-    // const index = props.allArrays.indexOf(props.arrayIndex);
-    if (this.props.arrayIndex > -1) {
+  const deleteArray = () => {
+    if (props.arrayIndex > -1) {
       // only splice array when item is found
-      this.props.allArrays.splice(this.props.arrayIndex, 1); // 2nd parameter means remove one item only
-    }
-    var ArrayObject = {};
-    ArrayObject["Arrays"] = this.props.allArrays;
-    console.log(this.props.allArrays);
-    axios
-      .post("http://localhost:8800/updateArray", ArrayObject)
-      .then((response) => {
-        console.log("Array Deleted");
-      });
-    if (this.props.arrayIndex > -1) {
-      // only splice array when item is found
-      this.props.arrayTypes.splice(this.props.arrayIndex, 1); // 2nd parameter means remove one item only
+      props.arrayTypes.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
     }
     var ArrayTypeObject = {};
-    ArrayTypeObject["ArrayTypes"] = this.props.arrayTypes;
+    ArrayTypeObject["ArrayTypes"] = props.arrayTypes;
     axios
       .post("http://localhost:8800/updateArray", ArrayTypeObject)
       .then((response) => {
         console.log("Arraytype Deleted");
       });
-    // getUpdates();
-    window.location.reload(true);
-  };
-  reverseArray = () => {
-    this.props.array.reverse();
+
+    // const index = props.allArrays.indexOf(props.arrayIndex);
+    if (props.arrayIndex > -1) {
+      // only splice array when item is found
+      props.allArrays.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
+    }
     var ArrayObject = {};
-    ArrayObject["Arrays." + this.props.arrayIndex] = this.props.array;
+    ArrayObject["Arrays"] = props.allArrays;
+    console.log(props.allArrays);
+    axios
+      .post("http://localhost:8800/updateArray", ArrayObject)
+      .then((response) => {
+        console.log("Array Deleted");
+      });
+  };
+  const reverseArray = () => {
+    props.array.reverse();
+    var ArrayObject = {};
+    ArrayObject["Arrays." + props.arrayIndex] = props.array;
     axios
       .post("http://localhost:8800/updateArray", ArrayObject)
       .then((response) => {
@@ -79,12 +90,11 @@ class Array extends React.Component {
       });
     window.location.reload(true);
   };
-
-  sortArray = () => {
-    this.props.array.sort((a, b) => a - b);
-    console.log(this.props.array);
+  const sortArray = () => {
+    props.array.sort((a, b) => a - b);
+    console.log(props.array);
     var SortedArrayObject = {};
-    SortedArrayObject["Arrays." + this.props.arrayIndex] = this.props.array;
+    SortedArrayObject["Arrays." + props.arrayIndex] = props.array;
     axios
       .post("http://localhost:8800/updateArray", SortedArrayObject)
       .then((response) => {
@@ -95,17 +105,16 @@ class Array extends React.Component {
   };
 
   // var indents =
-  render(){
   return (
     <Draggable handle="#handle" bounds={{ left: 0 }}>
       <div className="Array">
         {/* {true && console.log("Mein ")} */}
         <div className="Array-manipulate-options" style={{ width: "100%" }}>
           <img id="handle" src="/drag-indicator.png" alt="pan-icon" />
-          <button id="handle-sort" onClick={this.sortArray}>
+          <button id="handle-sort" onClick={sortArray}>
             Sort
           </button>
-          <button id="handle-reverse" onClick={this.reverseArray}>
+          <button id="handle-reverse" onClick={reverseArray}>
             Reverse
           </button>
           <div id="Array-delete-option">
@@ -113,27 +122,17 @@ class Array extends React.Component {
               id="handle-delete"
               src="/Cross_red_circle.png"
               alt=""
-              onClick={this.deleteArray}
+              onClick={deleteArray}
             />
           </div>
         </div>
         <div className="draggable">
           {/* {console.log(props.array)} */}
-          {this.props.array.map((i, index) => (
-            <ElementArray
-              value={i}
-              index={index}
-              array={this.props.array}
-              arrayIndex={this.props.arrayIndex}
-              typeOfArray={this.props.typeOfArray}
-              dataType={this.props.dataType}
-            />
-          ))}
+          {indents}
         </div>
       </div>
     </Draggable>
   );
-          }
 }
 
 export default Array;

@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 			userId: user._id,
 			token: crypto.randomBytes(32).toString("hex"),
 		}).save();
-		const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
+		const url = user.otp;
 		await sendEmail(user.email, "Verify Email", url);
 
 		res
@@ -41,7 +41,8 @@ router.post("/", async (req, res) => {
 router.get("/:id/verify/:token/", async (req, res) => {
 	try {
 		const user = await User.findOne({ _id: req.params.id });
-		if (!user) return res.status(400).send({ message: "Invalid link" });
+		console.log(user);
+			if (!user) return res.status(400).send({ message: "Invalid link" });
 
 		const token = await Token.findOne({
 			userId: user._id,
@@ -57,5 +58,16 @@ router.get("/:id/verify/:token/", async (req, res) => {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
+router.get("/getOtp/:email",(req, res) => {
+		// const user = await User.findOne({ email: req.params.email });
+		User.findOne({ email: req.params.email },(err,result)=>{
+			if (err) {
+				res.send(err);
+			  } else {
+				res.send(result);
+			  }
+		})
+})
 
 module.exports = router;

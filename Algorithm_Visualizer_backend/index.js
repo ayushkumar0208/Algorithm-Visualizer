@@ -1,14 +1,10 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
-const userRoutes = require("./routes/users");
-const authRoutes = require("./routes/auth");
 app.use(express.json());
 const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(cors());
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
+const { User} = require("./models/user");
 const DB =
   "mongodb+srv://aryaayush0208:ELDSacJlwS8sOKdv@cluster0.uql45ho.mongodb.net/?retryWrites=true&w=majority";
 
@@ -30,20 +26,23 @@ const WorkSpaceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    ArrayTypes: {
-      type: [String],
+    ArrayTypes:{
+      type: [String]
     },
     Arrays: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
-    Stacks: {
-      type: [[mongoose.Schema.Types.Mixed]],
+    StackTypes:{
+      type: [String]
     },
-    Queues: {
-      type: [[mongoose.Schema.Types.Mixed]],
-    },
+    Stacks:{
+      type: [[mongoose.Schema.Types.Mixed]]
+    }, 
+    Queues:{
+      type: [[mongoose.Schema.Types.Mixed]]
+    }
   },
-  { timestamps: true }
+  { timestamps: true } 
 );
 
 const WorkSpace = mongoose.model("WorkSpace", WorkSpaceSchema);
@@ -70,34 +69,32 @@ app.get("/Workspace/Structures", (err, res) => {
   });
 });
 
-app.post("/updateArray", (req, res) => {
-  console.log(req.body);
 
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $set: req.body },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
+app.post("/updateArray",(req, res) => {
+  console.log(req.body)
+
+  WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
     }
-  );
-});
+  })
+
+})
 app.post("/updateArrayIndex/:field/:value", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
-  //                     👆ArrayIndex
+  //                     👆ArrayIndex 
   var string = req.params.field;
   var num = req.params.value;
 
   var newField = {};
-  newField[string] = num;
+  newField[string]=num;
 
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $set: newField },
+    {$set:newField},
     (err, result) => {
       if (err) {
         res.send(err);
@@ -105,8 +102,8 @@ app.post("/updateArrayIndex/:field/:value", (req, res) => {
         res.send(result);
       }
     }
-  );
-});
+  );}
+);
 
 app.post("/updateAddNewArray", (req, res) => {
   console.log(req.body);
@@ -152,10 +149,11 @@ app.post("/updateAddNewArrayType/:field", (req, res) => {
   );
 });
 
+
 app.post("/updateAddNewStack", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $push: { Stacks: [] } },
+    { $push: { Stacks: []} },
     (err, result) => {
       if (err) {
         res.send(err);
@@ -167,33 +165,29 @@ app.post("/updateAddNewStack", (req, res) => {
 });
 
 app.post("/updateStackAfterDelete", (req, res) => {
-  console.log(req.body);
+  console.log(req.body)
 
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $set: req.body },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
+  WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
     }
-  );
+  })
 });
 
 app.post("/updateStack/:index", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
-  //                     👆ArrayIndex
+  //                     👆ArrayIndex 
   var indexValue = req.params.index;
 
   var newField = {};
-  newField[indexValue] = req.body;
+  newField[indexValue]=req.body;
 
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $set: newField },
+    {$set:newField},
     (err, result) => {
       if (err) {
         res.send(err);
@@ -201,13 +195,14 @@ app.post("/updateStack/:index", (req, res) => {
         res.send(result);
       }
     }
-  );
-});
+  );}
+);
+
 
 app.post("/updateAddNewQueue", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $push: { Queues: [] } },
+    { $push: { Queues: []} },
     (err, result) => {
       if (err) {
         res.send(err);
@@ -221,15 +216,15 @@ app.post("/updateAddNewQueue", (req, res) => {
 app.post("/updateQueue/:index", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
-  //                     👆ArrayIndex
+  //                     👆ArrayIndex 
   var indexValue = req.params.index;
 
   var newField = {};
-  newField[indexValue] = req.body;
+  newField[indexValue]=req.body;
 
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $set: newField },
+    {$set:newField},
     (err, result) => {
       if (err) {
         res.send(err);
@@ -237,24 +232,63 @@ app.post("/updateQueue/:index", (req, res) => {
         res.send(result);
       }
     }
-  );
-});
+  );}
+);
 
 app.post("/updateQueueAfterDelete", (req, res) => {
-  console.log(req.body);
+  console.log(req.body)
 
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $set: req.body },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
+  WorkSpace.findOneAndUpdate({name:"Workspace1"},{$set:req.body},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
     }
-  );
+  })
 });
 
-const port = process.env.PORT || 8800;
-app.listen(port, () => console.log(`Listen on port ${port}...`));
+require('dotenv').config();
+// const express  = require('express');
+// const app = express();
+// const cors = require("cors");
+// const connection  = require("./db");
+const userRoutes = require("./routes/users")
+const authRoutes = require("./routes/auth")
+
+app.get("/getOtp/:email",(req, res) => {
+  // const user = await User.findOne({ email: req.params.email });
+  User.findOne({ email: req.params.email },(err,result)=>{
+    if (err) {
+      res.send(err);
+      } else {
+      res.send(result);
+      }
+  })
+})
+app.post("/userVerified/:email",(req,res)=>{
+  
+  User.findOneAndUpdate({email:req.params.email },{$set:{verified:true}},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+//database connection
+// connection()
+
+//middleware 
+// app.use(express.json())
+// app.use(cors());
+
+//routes
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+
+// const port = process.env.PORT || 8080;
+// app.listen(port, () => console.log(`Listen on port ${port}...`))
+
+app.listen(8800, () => {
+  console.log("Port 8800");
+});

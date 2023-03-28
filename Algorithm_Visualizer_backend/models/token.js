@@ -9,7 +9,7 @@ const tokenSchema = new Schema({
         unique: true,
     },
     token: {type: String, required: true},
-    createdAt: {type: Date, default: Date.now(), expires: 60} //1 Hour
+    createdAt: {type: Date, default: Date.now(), expires: 3600} //1 Hour
     
 })
 

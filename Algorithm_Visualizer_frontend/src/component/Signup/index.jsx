@@ -4,24 +4,56 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 
 const Signup = () => {
+
+	const [otp, setOtp] = useState()
+
+	const verifyOtp =() => {
+		fetch("http://localhost:8800/getOtp/"+data.email, {
+		  method: "GET",
+		  headers: { Accept: "application/json" },
+		})
+		  .then((response) => response.json())
+		  .then((result) => {
+			// props.setArrays(result[0].Arrays);
+			console.log(result.otp)
+			console.log(otp)
+			if(result.otp===otp){
+				axios.post("http://localhost:8800/userVerified/"+data.email).then((response) => {
+					console.log("User verified")
+				  })
+			}
+		  });
+		  
+	  };
+	
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
 		email: "",
 		password: "",
+		otp: (Math.floor(Math.random()*1000000)).toString()
 	});
 	const [error, setError] = useState("");
 	const [msg, setMsg] = useState("");
 
+	
+
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
+		
 	};
+	const handleChangeotp=(e)=>{
+		const data = e.target.value;
+		setOtp(data)
+		console.log(otp)
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			const url = "http://localhost:8800/api/users";
 			const { data: res } = await axios.post(url, data);
+			console.log(data);
 			setMsg(res.message)
 			
 		} catch (error) {
@@ -85,6 +117,19 @@ const Signup = () => {
 							required
 							className={styles.input}
 						/>
+						<div>
+						<input
+							type="text"
+							placeholder="Enter OTP"
+							name="otp"
+							value={otp}
+							onChange={handleChangeotp}
+							className={styles.input}
+						/>
+						<button onClick={verifyOtp}>Verify OTP</button>
+
+						</div>
+							
 						{error && <div className={styles.error_msg}>{error}</div>}
 						{msg && <div className={styles.success_msg}>{msg}</div>}
 						<button type="submit" className={styles.green_btn}>

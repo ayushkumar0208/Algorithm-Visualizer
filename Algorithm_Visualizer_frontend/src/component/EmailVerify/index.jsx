@@ -37,7 +37,6 @@ const EmailVerify = () => {
 				<div className={styles.container}>
 					<img src={success} alt="success_img" className={styles.success_img} />
 					<h1>Email verified successfully</h1>
-					{/* <a href="http://localhost:3000/users/6420a3001fcf638dd5a2f734/verify/a34cf22e09308dfa9eb7e6597f248f59c5956ae5e42d1119aca4fb14fdbfecce">Click Me</a> */}
 					<Link to="/login">
 						<button className={styles.green_btn}>Login</button>
 					</Link>

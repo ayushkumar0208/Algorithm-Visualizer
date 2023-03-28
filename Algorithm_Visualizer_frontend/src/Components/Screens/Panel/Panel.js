@@ -3,7 +3,6 @@ import "./Panel.css";
 import Workspace from "../Workspace/Workspace";
 import axios from "axios";
 import Main from "../../../component/Main";
-
 function Panel(props) {
   const [state, setState] = useState({
     DropDownArray: false,
@@ -16,6 +15,8 @@ function Panel(props) {
   });
 
   const [arrayTypes,setarrayTypes]=useState([]);
+  const [stackTypes,setstackTypes]=useState([]);
+  const [queueTypes,setqueueTypes]=useState([]);
 
   const handleArrayLengthChange = (e) => {
     const value = e.target.value;
@@ -50,6 +51,8 @@ function Panel(props) {
     });
   };
 
+
+
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
       method: "GET",
@@ -58,6 +61,8 @@ function Panel(props) {
       .then((response) => response.json())
       .then((result) => {
         setarrayTypes(result[0].ArrayTypes);
+        setstackTypes(result[0].StackTypes);
+        setqueueTypes(result[0].QueueTypes);
       });
   });
 
@@ -71,7 +76,8 @@ function Panel(props) {
             <div className="Panel-Array">
               <button
                 id="Array-option-button"
-                onClick={() => handleDropDownArray()}
+                onClick={() => handleDropDownArray()
+                }
               >
                 Array
               </button>
@@ -138,7 +144,9 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
-                        setState({ ...state, typeOfStack: "Integer" })
+                        {                        
+                        axios.post("http://localhost:8800/updateAddNewStackType/Integer")
+                        setState({ ...state, typeOfStack: "Integer" })}
                       }
                     >
                       Integer
@@ -146,7 +154,9 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
-                        setState({ ...state, typeOfStack: "String" })
+                        {
+                          axios.post("http://localhost:8800/updateAddNewStackType/String")
+                        setState({ ...state, typeOfStack: "String" })}
                       }
                     >
                       String
@@ -154,7 +164,10 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
+                        {
+                          axios.post("http://localhost:8800/updateAddNewStackType/Double")
                         setState({ ...state, typeOfStack: "Double" })
+                        }
                       }
                     >
                       Double
@@ -176,7 +189,10 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
+                        {
+                          axios.post("http://localhost:8800/updateAddNewQueueType/Integer")
                         setState({ ...state, typeOfQueue: "Integer" })
+                      }
                       }
                     >
                       Integer
@@ -184,16 +200,20 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
+                        {
+                          axios.post("http://localhost:8800/updateAddNewQueueType/String")
                         setState({ ...state, typeOfQueue: "String" })
-                      }
+                      }}
                     >
                       String
                     </div>
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
+                      {
+                        axios.post("http://localhost:8800/updateAddNewQueueType/Double")
                         setState({ ...state, typeOfQueue: "Double" })
-                      }
+                      }}
                     >
                       Double
                     </div>
@@ -216,6 +236,10 @@ function Panel(props) {
             typeOfQueue={state.typeOfQueue}
             arrayTypes={arrayTypes}
             setarrayTypes={setarrayTypes}
+            stackTypes={stackTypes}
+            setstackTypes={setstackTypes}
+            queueTypes={queueTypes}
+            setqueueTypes={setqueueTypes}
           />
         </div>
       </div>
