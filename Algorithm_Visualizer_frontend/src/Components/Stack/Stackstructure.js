@@ -105,7 +105,7 @@ export default function Stackstructure(props) {
                 alt="Push button"
               />
               <input
-                type="number"
+                type="text"
                 id="inputvalue"
                 value={inputValue}
                 onChange={handleChange}

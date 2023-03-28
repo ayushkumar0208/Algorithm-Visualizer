@@ -31,11 +31,11 @@ router.post("/", async (req, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
     const url = user.otp;
-    await sendEmail(user.email, "Verify Email", url);
+    await sendEmail(user.email, "Verify OTP", url);
 
     res
       .status(201)
-      .send({ message: "An Email sent to your account please verify" });
+      .send({ message: "An OTP has been sent to your Email." });
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Internal Server Error" });

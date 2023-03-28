@@ -145,7 +145,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                         {                        
-                        axios.post("http://localhost:8800/updateAddNewStackType/Integer")
+                        // axios.post("http://localhost:8800/updateAddNewStackType/Integer")
                         setState({ ...state, typeOfStack: "Integer" })}
                       }
                     >
@@ -155,7 +155,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                         {
-                          axios.post("http://localhost:8800/updateAddNewStackType/String")
+                          // axios.post("http://localhost:8800/updateAddNewStackType/String")
                         setState({ ...state, typeOfStack: "String" })}
                       }
                     >
@@ -165,7 +165,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                         {
-                          axios.post("http://localhost:8800/updateAddNewStackType/Double")
+                          // axios.post("http://localhost:8800/updateAddNewStackType/Double")
                         setState({ ...state, typeOfStack: "Double" })
                         }
                       }
@@ -190,7 +190,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                         {
-                          axios.post("http://localhost:8800/updateAddNewQueueType/Integer")
+                          // axios.post("http://localhost:8800/updateAddNewQueueType/Integer")
                         setState({ ...state, typeOfQueue: "Integer" })
                       }
                       }
@@ -201,7 +201,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                         {
-                          axios.post("http://localhost:8800/updateAddNewQueueType/String")
+                          // axios.post("http://localhost:8800/updateAddNewQueueType/String")
                         setState({ ...state, typeOfQueue: "String" })
                       }}
                     >
@@ -211,7 +211,7 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>
                       {
-                        axios.post("http://localhost:8800/updateAddNewQueueType/Double")
+                        // axios.post("http://localhost:8800/updateAddNewQueueType/Double")
                         setState({ ...state, typeOfQueue: "Double" })
                       }}
                     >
@@ -226,7 +226,7 @@ function Panel(props) {
         </div>
         <div className="Home-workspace">
           {/* {console.log(state.lengthOfArray)} */}
-          {/* {console.log(state.typeOfArray)} */}
+          {console.log(state.typeOfQueue)}
           {/* {console.log(arrayTypes[arrayTypes.length-1])} */}
           <Workspace
             typeOfArray={state.typeOfArray}
