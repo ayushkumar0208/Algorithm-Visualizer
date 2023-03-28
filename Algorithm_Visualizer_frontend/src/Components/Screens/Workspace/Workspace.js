@@ -50,6 +50,15 @@ function Workspace(props) {
     
   };
 
+  // const arraytypefunc=()=>{
+  //   if(props.typeOfArray!=null){
+  //   const arraytype=props.typeOfArray;
+  //   arraytypes.push(arraytype);
+  //   console.log('array type'+arraytypes[0])
+  //   }
+  // };
+    // console.log('array type outside '+arraytypes[0])
+   
   // const createNewStack = () => {
     
   //   props.setState({
@@ -79,6 +88,9 @@ function Workspace(props) {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack} stackTypes={props.stackTypes} dataType={props.stackTypes[index]}/>;
       })}
 
+      {queue.map((element,index) => {
+        return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
+      })}
       {queue.map((element,index) => {
         return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
       })}

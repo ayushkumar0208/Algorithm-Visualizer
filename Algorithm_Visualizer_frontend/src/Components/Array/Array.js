@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import "./Array.css";
 import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
@@ -11,82 +11,98 @@ function Array(props) {
   //   ));
   // }
   // componentDidUpdate(){
-    // console.log(props.array)
-    // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
-    // console.log("In array file: "+props.dataType)
-    
-    useEffect(() => {
-      fetch("http://localhost:8800/Workspace/Structures", {
-        method: "GET",
-        headers: { Accept: "application/json" },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          props.setArrays(result[0].Arrays);
-          // console.log(props.array)
-        });
-        // indents = props.array.map((i, index) => (
-        //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
-        // ))
-    });
-    var indents = props.array.map((i, index) => (
-      <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
-    ))
-  
+  // console.log(props.array)
+  // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
+  // console.log("In array file: "+props.dataType)
+
+  useEffect(() => {
+    fetch("http://localhost:8800/Workspace/Structures", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        props.setArrays(result[0].Arrays);
+        // console.log(props.array)
+      });
+    // indents = props.array.map((i, index) => (
+    //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
+    // ))
+  });
+  var indents = props.array.map((i, index) => (
+    <ElementArray
+      value={i}
+      index={index}
+      array={props.array}
+      arrayIndex={props.arrayIndex}
+      typeOfArray={props.typeOfArray}
+      dataType={props.dataType}
+    />
+  ));
+
   // useEffect(() => {
   //   // console.log("teri maa ki")
   //   indents = props.array.map((i, index) => (
   //     <ElementArray value={i} index={index} array={props.array} />
-  //   )) 
-  // }) 
+  //   ))
+  // })
   // useEffect(){
-    
+
   // }
-     
+
   // }
 
   const deleteArray = () => {
-    if (props.arrayIndex > -1) { // only splice array when item is found
+    if (props.arrayIndex > -1) {
+      // only splice array when item is found
       props.arrayTypes.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
     }
-    var ArrayTypeObject={};
-    ArrayTypeObject['ArrayTypes']=props.arrayTypes;
-    axios.post("http://localhost:8800/updateArray",ArrayTypeObject).then((response) => {
-      console.log("Arraytype Deleted")
-    })
+    var ArrayTypeObject = {};
+    ArrayTypeObject["ArrayTypes"] = props.arrayTypes;
+    axios
+      .post("http://localhost:8800/updateArray", ArrayTypeObject)
+      .then((response) => {
+        console.log("Arraytype Deleted");
+      });
 
     // const index = props.allArrays.indexOf(props.arrayIndex);
-    if (props.arrayIndex > -1) { // only splice array when item is found
+    if (props.arrayIndex > -1) {
+      // only splice array when item is found
       props.allArrays.splice(props.arrayIndex, 1); // 2nd parameter means remove one item only
     }
     var ArrayObject = {};
-    ArrayObject['Arrays']=props.allArrays
-    console.log(props.allArrays)
-    axios.post("http://localhost:8800/updateArray",ArrayObject).then((response) => {
-      console.log("Array Deleted")
-    })
-  }
- const reverseArray = () => {
-  props.array.reverse();
-  var ArrayObject = {}
-    ArrayObject["Arrays."+props.arrayIndex]=props.array;
-    axios.post("http://localhost:8800/updateArray",ArrayObject).then((response) => {
-      console.log("Array Reversed")
-    })
+    ArrayObject["Arrays"] = props.allArrays;
+    console.log(props.allArrays);
+    axios
+      .post("http://localhost:8800/updateArray", ArrayObject)
+      .then((response) => {
+        console.log("Array Deleted");
+      });
+  };
+  const reverseArray = () => {
+    props.array.reverse();
+    var ArrayObject = {};
+    ArrayObject["Arrays." + props.arrayIndex] = props.array;
+    axios
+      .post("http://localhost:8800/updateArray", ArrayObject)
+      .then((response) => {
+        console.log("Array Reversed");
+      });
     window.location.reload(true);
- }
+  };
   const sortArray = () => {
     props.array.sort((a, b) => a - b);
     console.log(props.array);
-    var SortedArrayObject = {}
-    SortedArrayObject["Arrays."+props.arrayIndex]=props.array;
-    axios.post("http://localhost:8800/updateArray",SortedArrayObject).then((response) => {
-      console.log("Array Sorted")
-    })
+    var SortedArrayObject = {};
+    SortedArrayObject["Arrays." + props.arrayIndex] = props.array;
+    axios
+      .post("http://localhost:8800/updateArray", SortedArrayObject)
+      .then((response) => {
+        console.log("Array Sorted");
+      });
     // window.refres
     window.location.reload(true);
   };
-
 
   // var indents =
   return (
@@ -101,10 +117,14 @@ function Array(props) {
           <button id="handle-reverse" onClick={reverseArray}>
             Reverse
           </button>
-          <div id="Array-delete-option"> 
-            <img  id="handle-delete" src="/Cross_red_circle.png" alt="" onClick={deleteArray}/>
+          <div id="Array-delete-option">
+            <img
+              id="handle-delete"
+              src="/Cross_red_circle.png"
+              alt=""
+              onClick={deleteArray}
+            />
           </div>
-          
         </div>
         <div className="draggable">
           {/* {console.log(props.array)} */}

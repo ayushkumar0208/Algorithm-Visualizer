@@ -60,18 +60,19 @@ export default function Stackstructure(props) {
     pushItem();
   };
 
-  var indents = props.stack.map((item, index) => (<div
-    className="individualstackblock"
-    key={index}
-    style={{
-      "backgroundColor":
-        index === 0 ? "rgb(169, 248, 138)" : "rgb(232, 231, 231)",
-      fontWeight: "500",
-    }}
-  >
-    {item}
-  </div>)
-  );
+  var indents = props.stack.map((item, index) => (
+    <div
+      className="individualstackblock"
+      key={index}
+      style={{
+        backgroundColor:
+          index === 0 ? "rgb(169, 248, 138)" : "rgb(232, 231, 231)",
+        fontWeight: "500",
+      }}
+    >
+      {item}
+    </div>
+  ));
 
   return (
     <Draggable handle="#handle" bounds={{ left: 0 }}>
