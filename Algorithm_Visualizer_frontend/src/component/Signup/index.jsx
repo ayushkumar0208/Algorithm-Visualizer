@@ -123,16 +123,16 @@ const Signup = () => {
               </button>
             </form>
           ) : (
-            <div>
+            <div >
               <input
                 type="text"
                 placeholder="Enter OTP"
                 name="otp"
                 value={otp}
                 onChange={handleChangeotp}
-                className={styles.input}
+                className={styles.inputOtp}
               />
-              <button onClick={verifyOtp}>Verify OTP</button>
+              <button onClick={verifyOtp} className ={styles.green_btn_Otp}>Verify OTP</button>
             </div>
           )}
           {error && <div className={styles.error_msg}>{error}</div>}
