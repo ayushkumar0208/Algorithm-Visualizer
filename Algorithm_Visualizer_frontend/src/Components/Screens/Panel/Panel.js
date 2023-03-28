@@ -96,7 +96,10 @@ function Panel(props) {
                       className="DropDownArray-option"
                       onClick={() =>{
                         axios.post("http://localhost:8800/updateAddNewArrayType/Integer")
-                        setState({ ...state, typeOfArray: "Integer" })}
+                        setState({ ...state, typeOfArray: "Integer" })
+                      }
+                        
+                        
                       }
                     >
                       Integer
