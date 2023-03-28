@@ -11,15 +11,13 @@ function Workspace(props) {
   const [queue,setQueue] = useState([]);
   
   useEffect(() => {
-    fetch("http://localhost:8800/Workspace/Structures", {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    })
-      .then((response) => response.json())
+    axios.get("http://localhost:8800/Workspace/Structures")
+
       .then((result) => {
-        setArrays(result[0].Arrays);
-        setStack(result[0].Stacks);
-        setQueue(result[0].Queues)
+        // console.log(result)
+        setArrays(result.data[0].Arrays);
+        setStack(result.data[0].Stacks);
+        setQueue(result.data[0].Queues)
       });
   });
 
@@ -71,7 +69,6 @@ function Workspace(props) {
   //       console.log("Stack added successfully");
   //     });
   // };
-  
 
 
   return (
@@ -84,6 +81,7 @@ function Workspace(props) {
         return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]} setArrays={setArrays} />;
       })}
       
+
       {stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack} stackTypes={props.stackTypes} dataType={props.stackTypes[index]}/>;
       })}
@@ -91,7 +89,7 @@ function Workspace(props) {
       {queue.map((element,index) => {
         return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
       })}
-     
+
     </div>
   );
 }

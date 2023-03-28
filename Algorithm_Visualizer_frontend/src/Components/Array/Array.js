@@ -1,10 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Array.css";
-import ElementArray from "../../Elements/ElementArray";
+// import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
 import axios from "axios";
+// import "../../Elements/ElementArray.css";
 
 function Array(props) {
+  // const [currentArray,setCurrentArray]=useState([])
+
+  // useEffect(() => {
+  //   axios.get("http://localhost:8800/Workspace/Structures")
+
+  //     .then((result) => {
+  //       // console.log(result)
+  //       // console.log(result.data[0].Arrays[props.arrayIndex])
+  //       setCurrentArray(result.data[0].Arrays[props.arrayIndex]);
+  //     });
+  // });
+
   // componentDidMount() {
   //   this.indents = this.props.array.map((i, index) => (
   //     <ElementArray value={i} index={index} array={this.props.array} />
@@ -15,30 +28,19 @@ function Array(props) {
   // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
   // console.log("In array file: "+props.dataType)
 
-  useEffect(() => {
-    fetch("http://localhost:8800/Workspace/Structures", {
-      method: "GET",
-      headers: { Accept: "application/json" },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        props.setArrays(result[0].Arrays);
-        // console.log(props.array)
-      });
-    // indents = props.array.map((i, index) => (
-    //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
-    // ))
-  });
-  var indents = props.array.map((i, index) => (
-    <ElementArray
-      value={i}
-      index={index}
-      array={props.array}
-      arrayIndex={props.arrayIndex}
-      typeOfArray={props.typeOfArray}
-      dataType={props.dataType}
-    />
-  ));
+  // useEffect(() => {
+  //   axios.get("http://localhost:8800/Workspace/Structures")
+
+  //     .then((result) => {
+  //       props.setArrays(result.data[0].Arrays);
+  //       // console.log(props.array)
+  //     });
+  //   // indents = props.array.map((i, index) => (
+  //   //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
+  //   // ))
+  // });
+  // console.log(currentArray)
+  ;
 
   // useEffect(() => {
   //   // console.log("teri maa ki")
@@ -64,7 +66,7 @@ function Array(props) {
       .then((response) => {
         console.log("Arraytype Deleted");
       });
-
+     
     // const index = props.allArrays.indexOf(props.arrayIndex);
     if (props.arrayIndex > -1) {
       // only splice array when item is found
@@ -77,6 +79,12 @@ function Array(props) {
       .post("http://localhost:8800/updateArray", ArrayObject)
       .then((response) => {
         console.log("Array Deleted");
+      //   axios.get("http://localhost:8800/Workspace/Structures")
+
+      // .then((result) => {
+      //   props.setArrays(result.data[0].Arrays);
+      //   // console.log(props.array)
+      // });
       });
   };
   const reverseArray = () => {
@@ -88,7 +96,7 @@ function Array(props) {
       .then((response) => {
         console.log("Array Reversed");
       });
-    window.location.reload(true);
+    // window.location.reload(true);
   };
   const sortArray = () => {
     props.array.sort((a, b) => a - b);
@@ -101,7 +109,24 @@ function Array(props) {
         console.log("Array Sorted");
       });
     // window.refres
-    window.location.reload(true);
+    // window.location.reload(true);
+  };
+  const handleValueChange = (e,elementIndex) => {
+    // const newValue = e.target.value;
+    // console.log(newValue)
+    // // setValue(newValue);
+    // this.setState({ value:e.target.value })
+    // this.state.value = e.target.value;
+    const newArray=[...props.allArrays[props.arrayIndex]]
+    console.log(newArray)
+    newArray[elementIndex] = e.target.value
+    // props.setArrays(newArray)
+
+    axios.post("http://localhost:8800/updateArrayIndex/Arrays."+props.arrayIndex,newArray).then((response) => {
+      console.log("Updated")
+    })
+    
+    
   };
 
   // var indents =
@@ -128,7 +153,52 @@ function Array(props) {
         </div>
         <div className="draggable">
           {/* {console.log(props.array)} */}
-          {indents}
+          {props.array.map((i, index) => {
+   return <div className="ElementArray" >
+   <p id="ElementArray_value">
+     {/* {console.log(this.state.typeOfArray)} */}
+     {props.dataType==="Integer"? (
+       <input
+
+       onChange={(e)=>handleValueChange(e,index)}
+       value={props.array[index]}
+       type="number"
+       autoComplete="off"
+       id="array-value"
+       name="array-value"
+       placeholder="0"
+     />
+     ):(props.dataType==="String"?(
+       <input
+       onChange={(e)=>handleValueChange(e,index)}
+      //  value={state.value}
+      value={props.array[index]}
+
+       type="text"
+       autoComplete="off"
+       id="array-value"
+       name="array-value"
+       placeholder="' '"
+     />
+     ):(
+       <input
+       onChange={(e)=>handleValueChange(e,index)}
+      //  value={this.state.value}
+      value={props.array[index]}
+       type="number"
+       autoComplete="off"
+       id="array-value"
+       name="array-value"
+       placeholder="0.0"
+     />
+     ))}
+     
+   </p>
+   <p id="ElementArray_index">{index}</p>
+   {/* {console.log(this.props.updateSortArray)} */}
+   {/* {this.props.updateSortArray?(<>{sortArray()}</>):(<></>)} */}
+ </div>
+})}
         </div>
       </div>
     </Draggable>

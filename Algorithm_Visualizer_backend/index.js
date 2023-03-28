@@ -83,15 +83,15 @@ app.post("/updateArray", (req, res) => {
     }
   );
 });
-app.post("/updateArrayIndex/:field/:value", (req, res) => {
+app.post("/updateArrayIndex/:field", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
   //                     👆ArrayIndex
   var string = req.params.field;
-  var num = req.params.value;
+ 
 
   var newField = {};
-  newField[string] = num;
+  newField[string] = req.body;
 
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
