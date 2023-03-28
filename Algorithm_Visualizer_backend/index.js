@@ -7,7 +7,8 @@ app.use(cors());
 const { User } = require("./models/user");
 require("dotenv").config();
 
-mongoose.connect(process.env.DB, {
+mongoose
+  .connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -252,7 +253,6 @@ app.post("/updateQueueAfterDelete", (req, res) => {
     }
   );
 });
-
 
 // const express  = require('express');
 // const app = express();
