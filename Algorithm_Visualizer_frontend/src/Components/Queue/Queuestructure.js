@@ -8,28 +8,31 @@ import "./Queuestructure.css";
 // import pushbutton from './Queueassets/pushbutton.png'
 // import popbutton from './Queueassets/popbutton.png'
 import Draggable from "react-draggable";
+import axios from "axios";
 
 export default function Queuestructure(props) {
-  const [queue, setQueue] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   const pushItem = (item) => {
     if (inputValue === "") {
       return;
     }
-    setQueue([...queue, inputValue]);
+    
+    const newQueue = [...props.queue, inputValue];
+    updateQueueInDb(newQueue);
     setInputValue("");
   };
 
   const popItem = () => {
-    if (queue.length === 0) {
+    if (props.queue.length === 0) {
       return;
     }
-    const newQueue = [...queue];
+    const newQueue = [...props.queue];
     newQueue.reverse();
     newQueue.pop();
     newQueue.reverse();
-    setQueue(newQueue);
+    console.log(newQueue)
+    updateQueueInDb(newQueue);
   };
 
   const handleChange = (event) => {
@@ -41,7 +44,29 @@ export default function Queuestructure(props) {
     pushItem();
   }; 
 
-  const deleteQueue = () => {}
+  const updateQueueInDb = (newQueue) => {
+    axios
+      .post(
+        "http://localhost:8800/updateStack/Queues." + props.queueIndex,
+        newQueue
+      )
+      .then((response) => {
+        console.log("Updated Queue successfully");
+      });
+  };
+
+  const deleteQueue = () => {
+    if (props.queueIndex > -1) {
+      props.allQueues.splice(props.queueIndex, 1);
+    }
+    var QueueObject = {};
+    QueueObject["Queues"] = props.allQueues;
+    axios
+      .post("http://localhost:8800/updateQueueAfterDelete", QueueObject)
+      .then((response) => {
+        console.log("Queue Deleted");
+      });
+  }
 
   return (
     <Draggable handle="#handle" bounds={{ left: 0 }}>
@@ -52,15 +77,15 @@ export default function Queuestructure(props) {
         </div>
 
         <div className="maincontainer-Queue">
-        {queue.length===0? (<p className="Queueblock" id="empty-block-queue">Empty</p>):(
+        {props.queue.length===0? (<p className="Queueblock" id="empty-block-queue">Empty</p>):(
           <div className="Queueblock">
             
-          {queue.map((item, index) => {
+          {props.queue.map((item, index) => {
             return (
               <div
                 className="individualQueueBlock"
                 key={index}
-                style={{ 'background-color': index === 0 ? "rgb(169, 248, 138)" : "rgb(232, 231, 231)" ,'fontWeight':'500'}}
+                style={{ 'backgroundColor': index === 0 ? "rgb(169, 248, 138)" : "rgb(232, 231, 231)" ,'fontWeight':'500'}}
               >
                 {item}
               </div>

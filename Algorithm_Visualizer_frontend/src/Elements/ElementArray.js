@@ -8,7 +8,8 @@ class ElementArray extends React.Component{
   // const [value, setValue] = useState(props.value);
   state = {
     value:this.props.value,
-    currentArray:this.props.array
+    currentArray:this.props.array,
+    typeOfArray:this.props.typeOfArray
   } 
   handleValueChange = (e) => {
     const newValue = e.target.value;
@@ -29,10 +30,10 @@ class ElementArray extends React.Component{
     
   return (
     // <Draggable>
-    <div className="ElementArray">
+    <div className="ElementArray" style={{'width': this.props.dataType==="Integer"? '3vw':this.props.dataType==="String"? '5.3vw':'4.7vw'}}>
       <p id="ElementArray_value">
-        {/* {" "} */}
-        <input
+        {console.log(this.props.dataType)}
+        {this.props.dataType==="Integer" && (<input
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
@@ -40,7 +41,26 @@ class ElementArray extends React.Component{
           id="array-value"
           name="array-value"
           placeholder="0"
-        />
+        />)}
+        {this.props.dataType==="String" && (<input
+          onChange={this.handleValueChange}
+          value={this.state.value}
+          type="text"
+          autoComplete="off"
+          id="array-value"
+          name="array-value"
+          placeholder="' '"
+        />)}
+        {this.props.dataType==="Double" && (<input
+          oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';"
+          onChange={this.handleValueChange}
+          value={this.state.value}
+          type="number"
+          autoComplete="off"
+          id="array-value"
+          name="array-value"
+          placeholder="0.0"
+        />)}
       </p>
       <p id="ElementArray_index">{this.props.index}</p>
       {/* {console.log(this.props.updateSortArray)} */}

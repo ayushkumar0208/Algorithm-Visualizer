@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Panel.css";
 import Workspace from "../Workspace/Workspace";
+import axios from "axios";
+import Main from "../../../component/Main";
 
 function Panel(props) {
   const [state, setState] = useState({
@@ -12,6 +14,8 @@ function Panel(props) {
     DropDownQueue: false,
     typeOfQueue: null,
   });
+
+  const [arrayTypes,setarrayTypes]=useState([]);
 
   const handleArrayLengthChange = (e) => {
     const value = e.target.value;
@@ -46,8 +50,20 @@ function Panel(props) {
     });
   };
 
+  useEffect(() => {
+    fetch("http://localhost:8800/Workspace/Structures", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setarrayTypes(result[0].ArrayTypes);
+      });
+  });
+
   return (
     <div className="Home">
+      <Main/>
       <div className="Home-main-activity">
         <div className="Panel">
           <div className="Panel-Section-1">
@@ -67,13 +83,17 @@ function Panel(props) {
                     placeholder="Length"
                     name="lengthOfArray"
                     onChange={handleArrayLengthChange}
-                  />
+                   required/>
                   <hr id="DropDownArray-separator" />
                   <div className="DropDownArray-options">
                     <div
                       className="DropDownArray-option"
-                      onClick={() =>
+                      onClick={() =>{
+                        axios.post("http://localhost:8800/updateAddNewArrayType/Integer")
                         setState({ ...state, typeOfArray: "Integer" })
+                      }
+                        
+                        
                       }
                     >
                       Integer
@@ -81,15 +101,18 @@ function Panel(props) {
                     <div
                       className="DropDownArray-option"
                       onClick={() =>
-                        setState({ ...state, typeOfArray: "String" })
+                        {axios.post("http://localhost:8800/updateAddNewArrayType/String")
+                        setState({ ...state, typeOfArray: "String" })}
                       }
                     >
                       String
                     </div>
+                    {console.log(arrayTypes)}
                     <div
                       className="DropDownArray-option"
-                      onClick={() =>
-                        setState({ ...state, typeOfArray: "Double" })
+                      onClick={() =>{
+                        axios.post("http://localhost:8800/updateAddNewArrayType/Double")
+                        setState({ ...state, typeOfArray: "Double" })}
                       }
                     >
                       Double
@@ -97,7 +120,7 @@ function Panel(props) {
                   </div>
                 </div>
               )}
-              {console.log(state.lengthOfArray)}
+              {/* {console.log(state.lengthOfArray)} */}
             </div>
             {/* Panek for Array ends */}
 
@@ -183,13 +206,16 @@ function Panel(props) {
         </div>
         <div className="Home-workspace">
           {/* {console.log(state.lengthOfArray)} */}
-          {console.log(state.typeOfStack)}
+          {/* {console.log(state.typeOfArray)} */}
+          {/* {console.log(arrayTypes[arrayTypes.length-1])} */}
           <Workspace
             typeOfArray={state.typeOfArray}
             setState={setState}
             lengthOfArray={state.lengthOfArray}
             typeOfStack={state.typeOfStack}
             typeOfQueue={state.typeOfQueue}
+            arrayTypes={arrayTypes}
+            setarrayTypes={setarrayTypes}
           />
         </div>
       </div>
