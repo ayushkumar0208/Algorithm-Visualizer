@@ -35,6 +35,7 @@ class ElementArray extends React.Component{
         {/* {console.log(this.state.typeOfArray)} */}
         {this.props.dataType==="Integer"? (
           <input
+
           onChange={this.handleValueChange}
           value={this.state.value}
           type="number"
