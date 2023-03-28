@@ -4,6 +4,7 @@ app.use(express.json());
 const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(cors());
+const { User} = require("./models/user");
 const DB =
   "mongodb+srv://aryaayush0208:ELDSacJlwS8sOKdv@cluster0.uql45ho.mongodb.net/?retryWrites=true&w=majority";
 
@@ -30,6 +31,9 @@ const WorkSpaceSchema = new mongoose.Schema(
     },
     Arrays: {
       type: [[mongoose.Schema.Types.Mixed]],
+    },
+    StackTypes:{
+      type: [String]
     },
     Stacks:{
       type: [[mongoose.Schema.Types.Mixed]]
@@ -242,6 +246,48 @@ app.post("/updateQueueAfterDelete", (req, res) => {
     }
   })
 });
+
+require('dotenv').config();
+// const express  = require('express');
+// const app = express();
+// const cors = require("cors");
+// const connection  = require("./db");
+const userRoutes = require("./routes/users")
+const authRoutes = require("./routes/auth")
+
+app.get("/getOtp/:email",(req, res) => {
+  // const user = await User.findOne({ email: req.params.email });
+  User.findOne({ email: req.params.email },(err,result)=>{
+    if (err) {
+      res.send(err);
+      } else {
+      res.send(result);
+      }
+  })
+})
+app.post("/userVerified/:email",(req,res)=>{
+  
+  User.findOneAndUpdate({email:req.params.email },{$set:{verified:true}},(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+//database connection
+// connection()
+
+//middleware 
+// app.use(express.json())
+// app.use(cors());
+
+//routes
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+
+// const port = process.env.PORT || 8080;
+// app.listen(port, () => console.log(`Listen on port ${port}...`))
 
 app.listen(8800, () => {
   console.log("Port 8800");

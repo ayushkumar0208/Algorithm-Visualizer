@@ -104,13 +104,14 @@ export default function Stackstructure(props) {
                 alt="Push button"
               />
               <input
-                type="text"
+                type="number"
                 id="inputvalue"
                 value={inputValue}
                 onChange={handleChange}
                 autoComplete="off"
                 placeholder="'Add to Stack"
               />
+              
               <img
                 id="pop-button-Stack"
                 onClick={popItem}
