@@ -70,19 +70,32 @@ function Workspace(props) {
   //     });
   // };
 
+  const createNewStack = () => {
+    console.log(props.typeOfStack);
+    
+    props.setState({
+      ...props.state,
+      typeOfStack: null,
+    });
+    axios
+    .post("http://localhost:8800/updateAddNewStack")
+    .then((response) => {
+      console.log("Stack added successfully");
+    });
+  }
+
 
   return (
     <div className="Workspace">
 
       {/* {props.typeOfArray !== null && arraytypefunc()} */}
       
-      {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray()}
+      {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray() }
       {arr.map((element,index) => {
         return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]} setArrays={setArrays} />;
       })}
       
-
-      {stack.map((element,index) => {
+      {props.typeOfStack1!==null && createNewStack()&& stack.map((element,index) => {
         return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack} stackTypes={props.stackTypes} dataType={props.stackTypes[index]}/>;
       })}
 
