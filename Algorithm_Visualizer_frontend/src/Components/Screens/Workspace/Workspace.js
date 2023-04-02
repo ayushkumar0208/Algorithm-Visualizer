@@ -7,33 +7,47 @@ import Queuestructure from "../../Queue/Queuestructure";
 
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
-  const [stack,setStack] = useState([]);
-  const [queue,setQueue] = useState([]);
-  
+  const [stack, setStack] = useState([]);
+  const [queue, setQueue] = useState([]);
+
   useEffect(() => {
-    axios.get("http://localhost:8800/Workspace/Structures")
+    axios
+      .get("http://localhost:8800/Workspace/Structures")
 
       .then((result) => {
         // console.log(result)
         setArrays(result.data[0].Arrays);
         setStack(result.data[0].Stacks);
-        setQueue(result.data[0].Queues)
+        setQueue(result.data[0].Queues);
       });
   });
+  const createNewQueue = () => {
+    makeAllNull();
 
-  // console.log(ArrayOfType)
+    axios.post("http://localhost:8800/updateAddNewQueue").then((response) => {
+      console.log("Queue added successfully");
+    });
+  };
+
+  const makeAllNull = () => {
+    props.setState({
+      typeOfArray: null,
+      typeOfQueue: null,
+      typeOfStack: null,
+    });
+  };
+  const createNewStack = () => {
+    makeAllNull();
+
+    axios.post("http://localhost:8800/updateAddNewStack").then((response) => {
+      console.log("Stack added successfully");
+    });
+  };
 
   const createNewArray = () => {
-    console.log(props.typeOfArray);
-    // var ArrayOfType=props.typeOfArray
-    // console.log(ArrayOfType)
-    props.setState({
-      ...props.state,
-      typeOfArray: null,
-    });
-
+    makeAllNull();
     const arrayToAdd = [];
-   
+
     for (var i = 0; i < Math.min(props.lengthOfArray, 10); i++) {
       arrayToAdd.push(null);
     }
@@ -43,66 +57,46 @@ function Workspace(props) {
       .then((response) => {
         console.log("Array added successfully");
       });
-    console.log(props.typeOfArray);
-    console.log(props.lengthOfArray);
-    
   };
-
-  // const arraytypefunc=()=>{
-  //   if(props.typeOfArray!=null){
-  //   const arraytype=props.typeOfArray;
-  //   arraytypes.push(arraytype);
-  //   console.log('array type'+arraytypes[0])
-  //   }
-  // };
-    // console.log('array type outside '+arraytypes[0])
-   
-  // const createNewStack = () => {
-    
-  //   props.setState({
-  //     ...props.state,
-  //     typeOfStack: null,
-  //   });
-  //   axios
-  //     .post("http://localhost:8800/updateAddNewStack")
-  //     .then((response) => {
-  //       console.log("Stack added successfully");
-  //     });
-  // };
-
-  const createNewStack = () => {
-    console.log(props.typeOfStack);
-    
-    props.setState({
-      ...props.state,
-      typeOfStack: null,
-    });
-    axios
-    .post("http://localhost:8800/updateAddNewStack")
-    .then((response) => {
-      console.log("Stack added successfully");
-    });
-  }
-
 
   return (
     <div className="Workspace">
+      {props.typeOfArray !== null &&
+        props.lengthOfArray > 0 &&
+        createNewArray()}
+      {props.typeOfQueue !== null && createNewQueue()}
+      {props.typeOfStack !== null && createNewStack()}
 
-      {/* {props.typeOfArray !== null && arraytypefunc()} */}
-      
-      {props.typeOfArray !== null && props.lengthOfArray>0 && createNewArray() }
-      {arr.map((element,index) => {
-        return <Array array={element} arrayIndex={index} allArrays={arr} arrayTypes={props.arrayTypes} dataType={props.arrayTypes[index]} setArrays={setArrays} />;
-      })}
-      
-      {props.typeOfStack1!==null && createNewStack()&& stack.map((element,index) => {
-        return <Stackstructure stackIndex={index} stack={element} setStack={setStack} allStacks={stack} stackTypes={props.stackTypes} dataType={props.stackTypes[index]}/>;
-      })}
+      {arr.map((element, index) => (
+        <Array
+          array={element}
+          arrayIndex={index}
+          allArrays={arr}
+          arrayTypes={props.arrayTypes}
+          dataType={props.arrayTypes[index]}
+          setArrays={setArrays}
+        />
+      ))}
 
-      {queue.map((element,index) => {
-        return <Queuestructure queueIndex={index} queue={element} setQueue={setQueue} allQueues={queue}/>
-      })}
+      {stack.map((element, index) => (
+        <Stackstructure
+          stackIndex={index}
+          stack={element}
+          setStack={setStack}
+          allStacks={stack}
+          stackTypes={props.stackTypes}
+          dataType={props.stackTypes[index]}
+        />
+      ))}
 
+      {queue.map((element, index) => (
+        <Queuestructure
+          queueIndex={index}
+          queue={element}
+          setQueue={setQueue}
+          allQueues={queue}
+        />
+      ))}
     </div>
   );
 }
