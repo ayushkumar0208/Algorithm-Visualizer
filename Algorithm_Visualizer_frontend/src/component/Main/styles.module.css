@@ -1,27 +1,29 @@
 .navbar {
 	width: 100%;
-	height: 70px;
-	background-color: #3bb19b;
+	height: 4vw;
+	background-color: #E5E4E4;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	box-shadow: 0 0 0.5vw rgb(169, 169, 169);
 }
 
 .navbar h1 {
-	color: white;
-	font-size: 25px;
-	margin-left: 20px;
+	color: rgb(111, 111, 111);
+	font-size: 1.5vw;
+	margin-left: 1vw;
 }
+
 
 .white_btn {
 	border: none;
 	outline: none;
-	padding: 12px 0;
+	padding: 1vw;
 	background-color: white;
-	border-radius: 20px;
-	width: 120px;
+	border-radius: 1vw;
+	/* width: 3vw; */
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 1vw;
 	cursor: pointer;
-	margin-right: 20px;
+	margin-right: 1vw;
 }

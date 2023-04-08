@@ -1,58 +1,10 @@
 import React from "react";
 import "./Array.css";
-// import ElementArray from "../../Elements/ElementArray";
 import Draggable from "react-draggable";
 import axios from "axios";
-// import "../../Elements/ElementArray.css";
 
 function Array(props) {
-  // const [currentArray,setCurrentArray]=useState([])
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8800/Workspace/Structures")
-
-  //     .then((result) => {
-  //       // console.log(result)
-  //       // console.log(result.data[0].Arrays[props.arrayIndex])
-  //       setCurrentArray(result.data[0].Arrays[props.arrayIndex]);
-  //     });
-  // });
-
-  // componentDidMount() {
-  //   this.indents = this.props.array.map((i, index) => (
-  //     <ElementArray value={i} index={index} array={this.props.array} />
-  //   ));
-  // }
-  // componentDidUpdate(){
-  // console.log(props.array)
-  // const [ignored,forcedUpdate] = useReducer(x=>x+1,0);
-  // console.log("In array file: "+props.dataType)
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8800/Workspace/Structures")
-
-  //     .then((result) => {
-  //       props.setArrays(result.data[0].Arrays);
-  //       // console.log(props.array)
-  //     });
-  //   // indents = props.array.map((i, index) => (
-  //   //   <ElementArray value={i} index={index} array={props.array} arrayIndex={props.arrayIndex} typeOfArray={props.typeOfArray} dataType={props.dataType}/>
-  //   // ))
-  // });
-  // console.log(currentArray)
-  ;
-
-  // useEffect(() => {
-  //   // console.log("teri maa ki")
-  //   indents = props.array.map((i, index) => (
-  //     <ElementArray value={i} index={index} array={props.array} />
-  //   ))
-  // })
-  // useEffect(){
-
-  // }
-
-  // }
 
   const deleteArray = () => {
     if (props.arrayIndex > -1) {
@@ -122,7 +74,7 @@ function Array(props) {
     newArray[elementIndex] = e.target.value
     // props.setArrays(newArray)
 
-    axios.post("http://localhost:8800/updateArrayIndex/Arrays."+props.arrayIndex,newArray).then((response) => {
+    axios.post("http://localhost:8800/updateIndex/Arrays."+props.arrayIndex,newArray).then((response) => {
       console.log("Updated")
     })
     
