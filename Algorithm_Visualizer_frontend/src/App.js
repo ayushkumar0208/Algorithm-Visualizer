@@ -9,6 +9,7 @@ import {Route, Routes, Navigate,BrowserRouter as Router} from 'react-router-dom'
 import Signup from './component/Signup'
 import Login from './component/Login'
 import EmailVerify from './component/EmailVerify'
+// import home from './Home/home';
 
 function App() {
   const user = localStorage.getItem("token")
@@ -22,6 +23,7 @@ function App() {
       <Route path ="/users/:id/verify/:token" element = {<EmailVerify/>} />
       </Routes>
       </Router>
+    
   );
 }
 

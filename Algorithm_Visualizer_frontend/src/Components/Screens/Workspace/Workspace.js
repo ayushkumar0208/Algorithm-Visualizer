@@ -66,37 +66,43 @@ function Workspace(props) {
         createNewArray()}
       {props.typeOfQueue !== null && createNewQueue()}
       {props.typeOfStack !== null && createNewStack()}
+      <div className="Workspace-bar">
+        {arr.length>0 && <p className="Workspace-bar-options">Arrays: {arr.length}</p>}        
+        {stack.length>0 && <p className="Workspace-bar-options">Stacks: {stack.length}</p>}
+        {queue.length>0 && <p className="Workspace-bar-options">Queues: {queue.length}</p>}
+      </div>
+      <div className="Workspace-Main">
+        {arr.map((element, index) => (
+          <Array
+            array={element}
+            arrayIndex={index}
+            allArrays={arr}
+            arrayTypes={props.arrayTypes}
+            dataType={props.arrayTypes[index]}
+            setArrays={setArrays}
+          />
+        ))}
 
-      {arr.map((element, index) => (
-        <Array
-          array={element}
-          arrayIndex={index}
-          allArrays={arr}
-          arrayTypes={props.arrayTypes}
-          dataType={props.arrayTypes[index]}
-          setArrays={setArrays}
-        />
-      ))}
+        {stack.map((element, index) => (
+          <Stackstructure
+            stackIndex={index}
+            stack={element}
+            setStack={setStack}
+            allStacks={stack}
+            stackTypes={props.stackTypes}
+            dataType={props.stackTypes[index]}
+          />
+        ))}
 
-      {stack.map((element, index) => (
-        <Stackstructure
-          stackIndex={index}
-          stack={element}
-          setStack={setStack}
-          allStacks={stack}
-          stackTypes={props.stackTypes}
-          dataType={props.stackTypes[index]}
-        />
-      ))}
-
-      {queue.map((element, index) => (
-        <Queuestructure
-          queueIndex={index}
-          queue={element}
-          setQueue={setQueue}
-          allQueues={queue}
-        />
-      ))}
+        {queue.map((element, index) => (
+          <Queuestructure
+            queueIndex={index}
+            queue={element}
+            setQueue={setQueue}
+            allQueues={queue}
+          />
+        ))}
+      </div>
     </div>
   );
 }
