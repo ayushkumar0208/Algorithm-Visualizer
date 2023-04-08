@@ -16,12 +16,13 @@ const Login = () => {
 		try {
 			const url = "http://localhost:8800/api/auth";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
+			localStorage.setItem("currentUser", res.data.email);
+			localStorage.setItem("currentUsername", res.data.firstName);
 			window.location = "/";
 		} catch (error) {
 			if (
 				error.response &&
-				error.response.status >= 400 &&
+				error.response.status >= 400 && 
 				error.response.status <= 500
 			) {
 				setError(error.response.data.message);
