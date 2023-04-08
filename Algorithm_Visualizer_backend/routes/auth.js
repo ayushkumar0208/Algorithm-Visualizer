@@ -23,24 +23,8 @@ router.post("/", async (req, res) => {
 		if (!validPassword)
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
-		if (!user.verified) {
-			let token = await Token.findOne({ userId: user._id });
-			if (!token) {
-				token = await new Token({
-					userId: user._id,
-					token: crypto.randomBytes(32).toString("hex"),
-				}).save();
-				const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
-				await sendEmail(user.email, "Verify Email", url);
-			}
-
-			return res
-				.status(400)
-				.send({ message: "An Email having OTP has been sent please verify" });
-		}
-
-		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "Logged in successfully" });
+		
+		res.status(200).send({ data: user, message: "Logged in successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
@@ -48,6 +32,7 @@ router.post("/", async (req, res) => {
 
 const validate = (data) => {
 	const schema = Joi.object({
+		firstName: Joi.string().label("First Name"),
 		email: Joi.string().email().required().label("Email"),
 		password: Joi.string().required().label("Password"),
 	});
