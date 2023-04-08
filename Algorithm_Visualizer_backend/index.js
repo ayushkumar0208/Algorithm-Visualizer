@@ -40,6 +40,9 @@ const WorkSpaceSchema = new mongoose.Schema(
     Queues: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
+    LinkedLists:{
+      type: [[mongoose.Schema.Types.Mixed]],
+    }
   },
   { timestamps: true }
 );
@@ -83,12 +86,11 @@ app.post("/updateArray", (req, res) => {
     }
   );
 });
-app.post("/updateArrayIndex/:field", (req, res) => {
+app.post("/updateIndex/:field", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
   //                     👆ArrayIndex
   var string = req.params.field;
- 
 
   var newField = {};
   newField[string] = req.body;
@@ -244,6 +246,39 @@ app.post("/updateQueueAfterDelete", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
     { $set: req.body },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+app.post("/updateAddNewLinkedList", (req, res) => {
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { LinkedLists: [] } },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/updateAddNewNode/:path", (req, res) => {
+  // console.log(req.body);
+  var Obj = {};
+  Obj[req.params.path] = null;
+  console.log(req.params.path)
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: Obj},
     (err, result) => {
       if (err) {
         res.send(err);

@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Panel.css";
 import Workspace from "../Workspace/Workspace";
 import axios from "axios";
 import Main from "../../../component/Main";
 function Panel(props) {
+  const [showPanel, setShowPanel] = useState(true);
   const [state, setState] = useState({
     DropDownArray: false,
     typeOfArray: null,
@@ -14,9 +15,9 @@ function Panel(props) {
     typeOfQueue: null,
   });
 
-  const [arrayTypes,setarrayTypes]=useState([]);
-  const [stackTypes,setstackTypes]=useState([]);
-  const [queueTypes,setqueueTypes]=useState([]);
+  const [arrayTypes, setarrayTypes] = useState([]);
+  const [stackTypes, setstackTypes] = useState([]);
+  const [queueTypes, setqueueTypes] = useState([]);
 
   const handleArrayLengthChange = (e) => {
     const value = e.target.value;
@@ -51,8 +52,6 @@ function Panel(props) {
     });
   };
 
-
-
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
       method: "GET",
@@ -68,165 +67,204 @@ function Panel(props) {
 
   return (
     <div className="Home">
-      <Main/>
+      <Main />
       <div className="Home-main-activity">
-        <div className="Panel">
-          <div className="Panel-Section-1">
-            {/* Pannel for Array begins*/}
-            <div className="Panel-Array">
+        <div
+          className="Panel-Complete"
+          style={{ "margin-left": showPanel ? "1vw" : "0%" }}
+        >
+          <div className="Panel-toggle">
+            {showPanel ? (
               <button
-                id="Array-option-button"
-                onClick={() => handleDropDownArray()
-                }
+                id="panel-toggle-button"
+                onClick={() => {
+                  setShowPanel(!showPanel);
+                }}
               >
-                Array
+                &lt;
               </button>
-              {state.DropDownArray && (
-                <div className="DropDownArray">
-                  <input
-                    id="DropDownArray-length"
-                    type="number"
-                    placeholder="Length"
-                    name="lengthOfArray"
-                    onChange={handleArrayLengthChange}
-                   required/>
-                  <hr id="DropDownArray-separator" />
-                  <div className="DropDownArray-options">
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>{
-                        axios.post("http://localhost:8800/updateAddNewArrayType/Integer")
-                        setState({ ...state, typeOfArray: "Integer" })
-                      }
-                        
-                        
-                      }
-                    >
-                      Integer
-                    </div>
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {axios.post("http://localhost:8800/updateAddNewArrayType/String")
-                        setState({ ...state, typeOfArray: "String" })}
-                      }
-                    >
-                      String
-                    </div>
-                    {console.log(arrayTypes)}
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>{
-                        axios.post("http://localhost:8800/updateAddNewArrayType/Double")
-                        setState({ ...state, typeOfArray: "Double" })}
-                      }
-                    >
-                      Double
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* {console.log(state.lengthOfArray)} */}
-            </div>
-            {/* Panek for Array ends */}
-
-            {/* Panel for Stack begins */}
-            <div className="Panel-Array">
+            ) : (
               <button
-                id="Array-option-button"
-                onClick={() => handleDropDownStack()}
+                id="panel-toggle-button"
+                style={{
+                  borderTopRightRadius: "1vw",
+                  borderBottomRightRadius: "1vw",
+                  borderTopLeftRadius: "0vw",
+                  borderBottomLeftRadius: "0vw",
+                  height: "80vh",
+                  transition: "0.6s",
+                }}
+                onClick={() => {
+                  setShowPanel(!showPanel);
+                }}
               >
-                Stack
+                &gt;
               </button>
-              {state.DropDownStack && (
-                <div className="DropDownArray">
-                  <div className="DropDownArray-options">
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {                        
-                        // axios.post("http://localhost:8800/updateAddNewStackType/Integer")
-                        setState({ ...state, typeOfStack: "Integer" })}
-                      }
-                    >
-                      Integer
-                    </div>
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {
-                          // axios.post("http://localhost:8800/updateAddNewStackType/String")
-                        setState({ ...state, typeOfStack: "String" })}
-                      }
-                    >
-                      String
-                    </div>
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {
-                          // axios.post("http://localhost:8800/updateAddNewStackType/Double")
-                        setState({ ...state, typeOfStack: "Double" })
-                        }
-                      }
-                    >
-                      Double
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Panel for Stack ends */}
-
-            {/* Panel for Queue begins */}
-            <div className="Panel-Array">
-              <button id="Array-option-button" onClick={handleDropDownQueue}>
-                Queue
-              </button>
-              {state.DropDownQueue && (
-                <div className="DropDownArray">
-                  <div className="DropDownArray-options">
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {
-                          // axios.post("http://localhost:8800/updateAddNewQueueType/Integer")
-                        setState({ ...state, typeOfQueue: "Integer" })
-                      }
-                      }
-                    >
-                      Integer
-                    </div>
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                        {
-                          // axios.post("http://localhost:8800/updateAddNewQueueType/String")
-                        setState({ ...state, typeOfQueue: "String" })
-                      }}
-                    >
-                      String
-                    </div>
-                    <div
-                      className="DropDownArray-option"
-                      onClick={() =>
-                      {
-                        // axios.post("http://localhost:8800/updateAddNewQueueType/Double")
-                        setState({ ...state, typeOfQueue: "Double" })
-                      }}
-                    >
-                      Double
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Panel for Queue ends */}
+            )}
           </div>
+          {showPanel && (
+            <div className="Panel">
+              <div className="Panel-Section-1">
+                <p id="Panel-Section-1-title">Linear Data Structures</p>
+                <div className="Panel-Section-1-options">
+                  {/* Pannel for Array begins*/}
+                  <div className="Panel-Array">
+                    <button
+                      id="Array-option-button"
+                      onClick={() => handleDropDownArray()}
+                    >
+                      Array
+                    </button>
+                    {state.DropDownArray && (
+                      <div className="DropDownArray">
+                        <input
+                          id="DropDownArray-length"
+                          type="number"
+                          placeholder="Length"
+                          name="lengthOfArray"
+                          onChange={handleArrayLengthChange}
+                          required
+                        />
+                        <hr id="DropDownArray-separator" />
+                        <div className="DropDownArray-options">
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              axios.post(
+                                "http://localhost:8800/updateAddNewArrayType/Integer"
+                              );
+                              setState({ ...state, typeOfArray: "Integer" });
+                            }}
+                          >
+                            Integer
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              axios.post(
+                                "http://localhost:8800/updateAddNewArrayType/String"
+                              );
+                              setState({ ...state, typeOfArray: "String" });
+                            }}
+                          >
+                            String
+                          </div>
+                          {console.log(arrayTypes)}
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              axios.post(
+                                "http://localhost:8800/updateAddNewArrayType/Double"
+                              );
+                              setState({ ...state, typeOfArray: "Double" });
+                            }}
+                          >
+                            Double
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {/* {console.log(state.lengthOfArray)} */}
+                  </div>
+                  {/* Panek for Array ends */}
+
+                  {/* Panel for Stack begins */}
+                  <div className="Panel-Array">
+                    <button
+                      id="Array-option-button"
+                      onClick={() => handleDropDownStack()}
+                    >
+                      Stack
+                    </button>
+                    {state.DropDownStack && (
+                      <div className="DropDownArray">
+                        <div className="DropDownArray-options">
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewStackType/Integer")
+                              setState({ ...state, typeOfStack: "Integer" });
+                            }}
+                          >
+                            Integer
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewStackType/String")
+                              setState({ ...state, typeOfStack: "String" });
+                            }}
+                          >
+                            String
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewStackType/Double")
+                              setState({ ...state, typeOfStack: "Double" });
+                            }}
+                          >
+                            Double
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {/* Panel for Stack ends */}
+
+                  {/* Panel for Queue begins */}
+                  <div className="Panel-Array">
+                    <button
+                      id="Array-option-button"
+                      onClick={handleDropDownQueue}
+                    >
+                      Queue
+                    </button>
+                    {state.DropDownQueue && (
+                      <div className="DropDownArray">
+                        <div className="DropDownArray-options">
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewQueueType/Integer")
+                              setState({ ...state, typeOfQueue: "Integer" });
+                            }}
+                          >
+                            Integer
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewQueueType/String")
+                              setState({ ...state, typeOfQueue: "String" });
+                            }}
+                          >
+                            String
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              // axios.post("http://localhost:8800/updateAddNewQueueType/Double")
+                              setState({ ...state, typeOfQueue: "Double" });
+                            }}
+                          >
+                            Double
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <button id="Array-option-button">LinkedList</button>
+                  {/* Panel for Queue ends */}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        <div className="Home-workspace">
+        <div className="Home-workspace" style={{"width":showPanel?"78vw":"95vw"}}>
           {/* {console.log(state.lengthOfArray)} */}
-          {console.log(state.typeOfQueue)}
+          {/* {console.log(state.typeOfQueue)} */}
           {/* {console.log(arrayTypes[arrayTypes.length-1])} */}
           <Workspace
             typeOfArray={state.typeOfArray}
@@ -241,7 +279,9 @@ function Panel(props) {
             queueTypes={queueTypes}
             setqueueTypes={setqueueTypes}
           />
+          {/* <LinkedList/> */}
         </div>
+        
       </div>
     </div>
   );

@@ -75,10 +75,10 @@
 .Workspace-bar{
   display: flex;
   align-items: center;
-  height: 2vw;
+  height: 1.5vw;
   /* justify-content: start; */
   background-color: #E8E7E7;
-  border-radius: 1vw;
+  border-radius: 99vw;
   padding: 0.25vw;
   box-shadow: 0 0 0.5vw rgb(169, 169, 169);
   margin-bottom: 1vw;
@@ -93,5 +93,6 @@
   padding-right: 0.5vw;
   font-size: 0.75vw;
   border-radius: 1vw;
+  transition: 0.6s;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
