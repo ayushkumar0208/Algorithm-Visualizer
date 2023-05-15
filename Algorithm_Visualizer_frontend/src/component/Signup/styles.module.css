@@ -1,0 +1,127 @@
+.signup_container {
+	width: 100%;
+	min-height: 100vh;
+	background-color: #f5f5f5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.signup_form_container {
+	width: 57vw;
+	height: 39vw;
+	display: flex;
+	border-radius: 10px;
+	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+		0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+.left {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #3bb19b;
+	border-top-left-radius: 0.7vw;
+	border-bottom-left-radius: 0.7vw;
+}
+
+.left h1 {
+	margin-top: 0;
+	color: white;
+	font-size: 2.3vw;
+	align-self: center;
+}
+
+.right {
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-top-right-radius: 0.7vw;
+	border-bottom-right-radius: 0.7vw;
+}
+
+.form_container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form_container h1 {
+	font-size: 2.3vw;
+	margin-top: 1.5vw;
+}
+
+.input {
+	outline: none;
+	border: none;
+	width: 28vw;
+	padding: 1.1vw;
+	border-radius: 0.7vw;
+	background-color: #edf5f3;
+	margin: 0.4vw 0;
+	font-size: 1.1vw;
+}
+.inputOtp{
+	outline: none;
+	border: none;
+	width: 20vw;
+	padding: 1.1vw;
+	border-radius: 0.7vw;
+	background-color: #edf5f3;
+	margin: 0.4vw 0;
+	font-size: 1.1vw;
+}
+
+.error_msg, .success_msg {
+	width: 28vw;
+	padding: 0.8vw;
+	margin: 0.4vw 0;
+	font-size: 1vw;
+	background-color: #f34646;
+	color: white;
+	border-radius: 0.8vw;
+	text-align: center;
+}
+
+.success_msg{
+	background-color: #5cdd5c;
+}
+
+.white_btn,
+.green_btn {
+	border: none;
+	outline: none;
+	padding: 1vw 0;
+	background-color: white;
+	border-radius: 2vw;
+	width: 10vw;
+	font-weight: bold;
+	font-size: 1.05vw;
+	cursor: pointer;
+}
+
+.green_btn {
+	background-color: #3bb19b;
+	color: white;
+	margin: 0.8vw;
+}
+
+.green_btn_Otp{
+	border: none;
+	outline: none;
+	padding: 0.8vw 0;
+	background-color: white;
+	border-radius: 1.5vw;
+	width: 7.1vw;
+	font-weight: bold;
+	font-size: 0.95vw;
+	cursor: pointer;
+	background-color: #3bb19b;
+	color: white;
+	margin: 0.6vw;
+}
