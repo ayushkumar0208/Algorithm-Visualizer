@@ -14,7 +14,7 @@ function Array(props) {
     var ArrayTypeObject = {};
     ArrayTypeObject["ArrayTypes"] = props.arrayTypes;
     axios
-      .post("http://localhost:8800/updateArray", ArrayTypeObject)
+      .post("http://localhost:8800/updateArray/"+props.WorkspaceId, ArrayTypeObject)
       .then((response) => {
         console.log("Arraytype Deleted");
       });
@@ -28,7 +28,7 @@ function Array(props) {
     ArrayObject["Arrays"] = props.allArrays;
     console.log(props.allArrays);
     axios
-      .post("http://localhost:8800/updateArray", ArrayObject)
+      .post("http://localhost:8800/updateArray/"+props.WorkspaceId, ArrayObject)
       .then((response) => {
         console.log("Array Deleted");
       //   axios.get("http://localhost:8800/Workspace/Structures")
@@ -44,7 +44,7 @@ function Array(props) {
     var ArrayObject = {};
     ArrayObject["Arrays." + props.arrayIndex] = props.array;
     axios
-      .post("http://localhost:8800/updateArray", ArrayObject)
+      .post("http://localhost:8800/updateArray/"+props.WorkspaceId, ArrayObject)
       .then((response) => {
         console.log("Array Reversed");
       });
@@ -56,7 +56,7 @@ function Array(props) {
     var SortedArrayObject = {};
     SortedArrayObject["Arrays." + props.arrayIndex] = props.array;
     axios
-      .post("http://localhost:8800/updateArray", SortedArrayObject)
+      .post("http://localhost:8800/updateArray/"+props.WorkspaceId, SortedArrayObject)
       .then((response) => {
         console.log("Array Sorted");
       });
@@ -74,7 +74,7 @@ function Array(props) {
     newArray[elementIndex] = e.target.value
     // props.setArrays(newArray)
 
-    axios.post("http://localhost:8800/updateIndex/Arrays."+props.arrayIndex,newArray).then((response) => {
+    axios.post("http://localhost:8800/updateIndex/Arrays."+props.arrayIndex+"/"+props.WorkspaceId,newArray).then((response) => {
       console.log("Updated")
     })
     

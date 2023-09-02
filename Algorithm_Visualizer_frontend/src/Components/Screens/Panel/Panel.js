@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Panel.css";
 import Workspace from "../Workspace/Workspace";
 import axios from "axios";
 import Main from "../../../component/Main";
 function Panel(props) {
+  const location = useLocation();
   const [showPanel, setShowPanel] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
   const [currNote, setCurrNote] = useState(0);
@@ -93,6 +95,7 @@ function Panel(props) {
   return (
     <div className="Home">
       {/* {console.log(Notes)} */}
+      {console.log(location.state)}
       <Main />
       <div className="Home-main-activity">
         <div
@@ -135,6 +138,7 @@ function Panel(props) {
           </div>
           {showPanel && (
             <div className="Panel">
+              <h6>WorkSpace Id: {location.state}</h6>
               <div className="Panel-Section-1">
                 <p id="Panel-Section-1-title">Linear Data Structures</p>
                 <div className="Panel-Section-1-options">
@@ -162,7 +166,7 @@ function Panel(props) {
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/Integer"
+                                "http://localhost:8800/updateAddNewArrayType/Integer/"+location.state
                               );
                               setState({ ...state, typeOfArray: "Integer" });
                             }}
@@ -173,19 +177,19 @@ function Panel(props) {
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/String"
+                                "http://localhost:8800/updateAddNewArrayType/String/"+location.state
                               );
                               setState({ ...state, typeOfArray: "String" });
                             }}
                           >
                             String
                           </div>
-                          {console.log(arrayTypes)}
+                          {/* {console.log(arrayTypes)} */}
                           <div
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/Double"
+                                "http://localhost:8800/updateAddNewArrayType/Double/"+location.state
                               );
                               setState({ ...state, typeOfArray: "Double" });
                             }}
@@ -319,6 +323,7 @@ function Panel(props) {
             setstackTypes={setstackTypes}
             queueTypes={queueTypes}
             setqueueTypes={setqueueTypes}
+            WorkspaceId = {location.state}
           />
           {/* <LinkedList/> */}
         </div>

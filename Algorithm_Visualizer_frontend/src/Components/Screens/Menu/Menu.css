@@ -1,0 +1,26 @@
+.Menu{
+    top: 0;
+    width:100%;
+    height: 100vh;
+    margin-top: 0%;
+    background-color: #E8E7E7;
+}
+.Menu-title{
+    height:30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#Menu-Create-button{
+    margin: auto;
+    display: flex;
+    align-self: center;
+    padding: 1.5vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    border-radius: 2vw;
+    color: rgb(247, 247, 247);
+    background-color: rgb(73, 73, 232);
+}
+

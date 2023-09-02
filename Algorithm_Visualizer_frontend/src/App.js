@@ -14,6 +14,7 @@ import {
 import Signup from "./component/Signup";
 import Login from "./component/Login";
 import EmailVerify from "./component/EmailVerify";
+import Menu from "./Components/Screens/Menu/Menu";
 // import LinkedList from "./Components/LinkedList/LinkedList";
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        {user && <Route path="/" exact element={<Panel />} />}
+        {user && <Route path="/" exact element={<Menu />} />}
         <Route path="/signup" exact element={<Signup />} />
+        <Route path="/Home" exact element={<Panel />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/" exact element={<Navigate replace to="/login" />} />
         <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
