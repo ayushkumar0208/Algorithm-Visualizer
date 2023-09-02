@@ -47,7 +47,7 @@ export default function Queuestructure(props) {
   const updateQueueInDb = (newQueue) => {
     axios
       .post(
-        "http://localhost:8800/updateStack/Queues." + props.queueIndex,
+        "http://localhost:8800/updateStructure/Queues." + props.queueIndex,
         newQueue
       )
       .then((response) => {

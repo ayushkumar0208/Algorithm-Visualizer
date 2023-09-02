@@ -20,7 +20,7 @@ export default function Stackstructure(props) {
   const updateStackInDb = (newStack) => {
     axios
       .post(
-        "http://localhost:8800/updateStack/Stacks." + props.stackIndex,
+        "http://localhost:8800/updateStructure/Stacks." + props.stackIndex,
         newStack
       )
       .then((response) => {

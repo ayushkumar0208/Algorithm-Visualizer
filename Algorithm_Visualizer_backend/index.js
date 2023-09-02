@@ -43,6 +43,9 @@ const WorkSpaceSchema = new mongoose.Schema(
     LinkedLists: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
+    Sets:{
+      type: [[mongoose.Schema.Types.Mixed]],
+    }
   },
   { timestamps: true }
 );
@@ -198,27 +201,7 @@ app.post("/updateStackAfterDelete", (req, res) => {
   );
 });
 
-app.post("/updateStack/:index", (req, res) => {
-  //                       👇 Index of value to update
-  //Here field => Arrays.1.0
-  //                     👆ArrayIndex
-  var indexValue = req.params.index;
 
-  var newField = {};
-  newField[indexValue] = req.body;
-
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $set: newField },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
 
 app.post("/updateAddNewQueue", (req, res) => {
   WorkSpace.findOneAndUpdate(
@@ -234,7 +217,7 @@ app.post("/updateAddNewQueue", (req, res) => {
   );
 });
 
-app.post("/updateQueue/:index", (req, res) => {
+app.post("/updateStructure/:index", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
   //                     👆ArrayIndex
@@ -294,6 +277,36 @@ app.post("/updateAddNewNode/:path", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
     { $push: Obj },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/updateAddNewSet", (req, res) => {
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $push: { Sets: [] } },
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/updateStackAfterDelete", (req, res) => {
+  console.log(req.body);
+
+  WorkSpace.findOneAndUpdate(
+    { name: "Workspace1" },
+    { $set: req.body },
     (err, result) => {
       if (err) {
         res.send(err);
