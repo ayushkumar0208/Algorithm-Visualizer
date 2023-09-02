@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Panel.css";
 import Workspace from "../Workspace/Workspace";
 import axios from "axios";
 import Main from "../../../component/Main";
 function Panel(props) {
+  const location = useLocation();
   const [showPanel, setShowPanel] = useState(true);
+  const [showNotes, setShowNotes] = useState(false);
+  const [currNote, setCurrNote] = useState(0);
+  const [Notes, setNotes] = useState([""]);
   const [state, setState] = useState({
     DropDownArray: false,
     typeOfArray: null,
@@ -20,7 +25,9 @@ function Panel(props) {
   const [arrayTypes, setarrayTypes] = useState([]);
   const [stackTypes, setstackTypes] = useState([]);
   const [queueTypes, setqueueTypes] = useState([]);
+
   const [setTypes, setsetTypes] = useState([]);
+
   
   const handleArrayLengthChange = (e) => {
     const value = e.target.value;
@@ -55,11 +62,32 @@ function Panel(props) {
     });
   };
 
+
   const handleDropDownSet = () => {
     setState({
       ...state,
       DropDownSet: !state.DropDownSet,
     });
+
+  const AddNote = () => {
+    Notes.push("");
+  };
+
+  const handleNoteContent = (e) => {
+    var newNotes = [...Notes];
+    newNotes[currNote] = e.target.value;
+    setNotes(newNotes);
+  };
+
+  const deleteNote = (index) => {
+    var newNotes = [...Notes];
+    
+    if(index>-1){
+      newNotes.splice(index, 1);
+      setCurrNote(0);
+    }
+    setNotes(newNotes)
+
   };
 
   useEffect(() => {
@@ -78,6 +106,8 @@ function Panel(props) {
 
   return (
     <div className="Home">
+      {/* {console.log(Notes)} */}
+      {console.log(location.state)}
       <Main />
       <div className="Home-main-activity">
         <div
@@ -88,8 +118,12 @@ function Panel(props) {
             {showPanel ? (
               <button
                 id="panel-toggle-button"
+                style={{
+                  borderTopLeftRadius: "1vw",
+                  borderBottomLeftRadius: "1vw",
+                }}
                 onClick={() => {
-                  setShowPanel(!showPanel);
+                  setShowPanel(false);
                 }}
               >
                 &lt;
@@ -106,7 +140,8 @@ function Panel(props) {
                   transition: "0.6s",
                 }}
                 onClick={() => {
-                  setShowPanel(!showPanel);
+                  setShowPanel(true);
+                  setShowNotes(false);
                 }}
               >
                 &gt;
@@ -115,6 +150,7 @@ function Panel(props) {
           </div>
           {showPanel && (
             <div className="Panel">
+              <h6>WorkSpace Id: {location.state}</h6>
               <div className="Panel-Section-1">
                 <p id="Panel-Section-1-title">Linear Data Structures</p>
                 <div className="Panel-Section-1-options">
@@ -142,7 +178,7 @@ function Panel(props) {
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/Integer"
+                                "http://localhost:8800/updateAddNewArrayType/Integer/"+location.state
                               );
                               setState({ ...state, typeOfArray: "Integer" });
                             }}
@@ -153,19 +189,19 @@ function Panel(props) {
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/String"
+                                "http://localhost:8800/updateAddNewArrayType/String/"+location.state
                               );
                               setState({ ...state, typeOfArray: "String" });
                             }}
                           >
                             String
                           </div>
-                          {console.log(arrayTypes)}
+                          {/* {console.log(arrayTypes)} */}
                           <div
                             className="DropDownArray-option"
                             onClick={() => {
                               axios.post(
-                                "http://localhost:8800/updateAddNewArrayType/Double"
+                                "http://localhost:8800/updateAddNewArrayType/Double/"+location.state
                               );
                               setState({ ...state, typeOfArray: "Double" });
                             }}
@@ -314,7 +350,17 @@ function Panel(props) {
             </div>
           )}
         </div>
-        <div className="Home-workspace" style={{"width":showPanel?"78vw":"95vw"}}>
+        <div
+          className="Home-workspace"
+          style={{
+            width:
+              showPanel && !showNotes
+                ? "78vw"
+                : !showPanel && showNotes
+                ? "60vw"
+                : "95vw",
+          }}
+        >
           {/* {console.log(state.lengthOfArray)} */}
           {/* {console.log(state.typeOfQueue)} */}
           {/* {console.log(arrayTypes[arrayTypes.length-1])} */}
@@ -333,10 +379,86 @@ function Panel(props) {
             setsetTypes={setsetTypes}
             setTypes={setTypes}
             typeOfSet={state.typeOfSet}
+            WorkspaceId = {location.state}
           />
           {/* <LinkedList/> */}
         </div>
-        
+        <div className="Notes">
+          {showNotes && (
+            <div className="Notes-Main">
+              <div style={{display:"flex", justifyContent:"space-between" ,width:"90%",alignItems:"center"}}>
+              <p id="Notes-title">Notes</p>
+              <button id="Note-Add-button" onClick={AddNote}>Add +</button>
+              </div>
+              
+              <div className="Notes-Menu">
+                <div className="Notes-List">
+                  {Notes.map((element, index) => (
+                    <p
+                      id="Note-button"
+                      onClick={() => setCurrNote(index)}
+                      style={{
+                        backgroundColor:
+                          index === currNote ? "#F7F6F6" : "#dbdbdb",
+                      }}
+                    >
+                      Note {index + 1}
+                      <img id="Notes-Close-img" src="/Notes-Close.png" alt="" onClick={() => deleteNote(index)}/>
+                    </p>
+                    // console.log(index)
+                  ))}
+                </div>
+
+                
+              </div>
+              
+              {Notes.length!==0?(<textarea
+                id="Note-content"
+                name="Note-content"
+                placeholder="Write a Note..."
+                value={Notes[currNote]}
+                onChange={(e) => handleNoteContent(e)}
+              />):(
+                <div id="dummy-Note">
+                  <p style={{fontFamily:"monospace", fontWeight:600 , fontSize:"1.5vw", color:"#757474"}}>Add New Note</p>
+                </div>
+              )}
+              
+            </div>
+          )}
+          {showNotes ? (
+            <button
+              id="panel-toggle-button"
+              style={{
+                borderTopRightRadius: "1vw",
+                borderBottomRightRadius: "1vw",
+
+                transition: "0.6s",
+              }}
+              onClick={() => {
+                setShowNotes(false);
+              }}
+            >
+              &gt;
+            </button>
+          ) : (
+            <button
+              id="panel-toggle-button"
+              style={{
+                borderTopLeftRadius: "1vw",
+                borderBottomLeftRadius: "1vw",
+                transition: "0.6s",
+                height: "80vh",
+              }}
+              onClick={() => {
+                setShowNotes(true);
+                setShowPanel(false);
+              }}
+            >
+              &lt;
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

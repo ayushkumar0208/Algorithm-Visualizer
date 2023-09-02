@@ -16,7 +16,7 @@ function Workspace(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8800/Workspace/Structures")
+      .post("http://localhost:8800/Workspace/"+props.WorkspaceId)
 
       .then((result) => {
         // console.log(result)
@@ -60,7 +60,7 @@ function Workspace(props) {
     }
 
     axios
-      .post("http://localhost:8800/updateAddNewArray", arrayToAdd)
+      .post("http://localhost:8800/updateAddNewArray/"+props.WorkspaceId, arrayToAdd)
       .then((response) => {
         console.log("Array added successfully");
       });
@@ -116,6 +116,7 @@ function Workspace(props) {
             arrayTypes={props.arrayTypes}
             dataType={props.arrayTypes[index]}
             setArrays={setArrays}
+            WorkspaceId = {props.WorkspaceId}
           />
         ))}
 

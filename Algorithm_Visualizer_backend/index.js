@@ -40,7 +40,7 @@ const WorkSpaceSchema = new mongoose.Schema(
     Queues: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
-    LinkedLists:{
+    LinkedLists: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
     Sets:{
@@ -74,11 +74,23 @@ app.get("/Workspace/Structures", (err, res) => {
   });
 });
 
-app.post("/updateArray", (req, res) => {
-  console.log(req.body);
+app.post("/Workspace/:field", (req, res) => {
+  var Id = req.params.field;
+  // const Obj = {name: id}
+  WorkSpace.find({ name: Id }, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
 
+app.post("/updateArray/:id", (req, res) => {
+  console.log(req.body);
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: req.body },
     (err, result) => {
       if (err) {
@@ -89,7 +101,7 @@ app.post("/updateArray", (req, res) => {
     }
   );
 });
-app.post("/updateIndex/:field", (req, res) => {
+app.post("/updateIndex/:field/:id", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
   //                     👆ArrayIndex
@@ -98,8 +110,9 @@ app.post("/updateIndex/:field", (req, res) => {
   var newField = {};
   newField[string] = req.body;
 
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: newField },
     (err, result) => {
       if (err) {
@@ -111,10 +124,11 @@ app.post("/updateIndex/:field", (req, res) => {
   );
 });
 
-app.post("/updateAddNewArray", (req, res) => {
+app.post("/updateAddNewArray/:id", (req, res) => {
   console.log(req.body);
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { Arrays: req.body } },
     (err, result) => {
       if (err) {
@@ -125,25 +139,27 @@ app.post("/updateAddNewArray", (req, res) => {
     }
   );
 });
-app.post("/updateAddNewArrayType/:field", (req, res) => {
-  var dataType = req.params.field;
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $push: { ArrayTypes: dataType } },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
+// app.post("/updateAddNewArrayType/:field/:id", (req, res) => {
+//   var dataType = req.params.field;
+//   var id = req.params.id;
+//   WorkSpace.findOneAndUpdate(
+//     { name: id },
+//     { $push: { ArrayTypes: dataType } },
+//     (err, result) => {
+//       if (err) {
+//         res.send(err);
+//       } else {
+//         res.send(result);
+//       }
+//     }
+//   );
+// });
 
-app.post("/updateAddNewArrayType/:field", (req, res) => {
+app.post("/updateAddNewArrayType/:field/:id", (req, res) => {
   var dataType = req.params.field;
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { ArrayTypes: dataType } },
     (err, result) => {
       if (err) {
@@ -239,7 +255,6 @@ app.post("/updateQueueAfterDelete", (req, res) => {
   );
 });
 
-
 app.post("/updateAddNewLinkedList", (req, res) => {
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
@@ -258,10 +273,10 @@ app.post("/updateAddNewNode/:path", (req, res) => {
   // console.log(req.body);
   var Obj = {};
   Obj[req.params.path] = null;
-  console.log(req.params.path)
+  console.log(req.params.path);
   WorkSpace.findOneAndUpdate(
     { name: "Workspace1" },
-    { $push: Obj},
+    { $push: Obj },
     (err, result) => {
       if (err) {
         res.send(err);
