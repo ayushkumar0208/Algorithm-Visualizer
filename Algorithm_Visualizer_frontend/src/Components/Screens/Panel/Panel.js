@@ -13,12 +13,15 @@ function Panel(props) {
     typeOfStack: null,
     DropDownQueue: false,
     typeOfQueue: null,
+    DropDownSet: false,
+    typeOfSet: null,
   });
 
   const [arrayTypes, setarrayTypes] = useState([]);
   const [stackTypes, setstackTypes] = useState([]);
   const [queueTypes, setqueueTypes] = useState([]);
-
+  const [setTypes, setsetTypes] = useState([]);
+  
   const handleArrayLengthChange = (e) => {
     const value = e.target.value;
     setState({
@@ -52,6 +55,13 @@ function Panel(props) {
     });
   };
 
+  const handleDropDownSet = () => {
+    setState({
+      ...state,
+      DropDownSet: !state.DropDownSet,
+    });
+  };
+
   useEffect(() => {
     fetch("http://localhost:8800/Workspace/Structures", {
       method: "GET",
@@ -62,6 +72,7 @@ function Panel(props) {
         setarrayTypes(result[0].ArrayTypes);
         setstackTypes(result[0].StackTypes);
         setqueueTypes(result[0].QueueTypes);
+        setsetTypes(result[0].SetTypes);
       });
   });
 
@@ -256,7 +267,48 @@ function Panel(props) {
                   </div>
 
                   <button id="Array-option-button">LinkedList</button>
-                  {/* Panel for Queue ends */}
+
+                  {/* Panel for Set begins */}
+                  <div className="Panel-Array">
+                    <button
+                      id="Array-option-button"
+                      onClick={handleDropDownSet}
+                    >
+                      Set
+                    </button>
+                    {state.DropDownSet && (
+                      <div className="DropDownArray">
+                        <div className="DropDownArray-options">
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              setState({ ...state, typeOfSet: "Integer" });
+                            }}
+                          >
+                            Integer
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              setState({ ...state, typeOfSet: "String" });
+                            }}
+                          >
+                            String
+                          </div>
+                          <div
+                            className="DropDownArray-option"
+                            onClick={() => {
+                              setState({ ...state, typeOfSet: "Double" });
+                            }}
+                          >
+                            Double
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Panel for Set ends */}
                 </div>
               </div>
             </div>
@@ -278,6 +330,9 @@ function Panel(props) {
             setstackTypes={setstackTypes}
             queueTypes={queueTypes}
             setqueueTypes={setqueueTypes}
+            setsetTypes={setsetTypes}
+            setTypes={setTypes}
+            typeOfSet={state.typeOfSet}
           />
           {/* <LinkedList/> */}
         </div>

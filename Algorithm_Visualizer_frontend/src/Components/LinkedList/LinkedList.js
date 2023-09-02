@@ -16,6 +16,10 @@ function LinkedList(props) {
       });
   };
 
+  const addNodeAt=(index)=>{
+    props.LinkedList.splice(2,0,addNode())
+  }
+
   const handleValueChange = (e, elementIndex) => {
     const newList = [...props.allLinkedList[props.listIndex]];
     newList[elementIndex] = e.target.value;
@@ -29,6 +33,7 @@ function LinkedList(props) {
         console.log("Updated");
       });
   };
+
   const deleteNode = (index) => {
     // const newList = [...props.allLinkedList[props.listIndex]];
     if(index>-1){
@@ -56,7 +61,7 @@ function LinkedList(props) {
             alt="delete"
             // onClick={deleteStack}
           />
-        </div>
+        </div> 
         <div className="LinkedList-Main">
           {props.LinkedList.map((element, index) => (
             <>
@@ -74,7 +79,7 @@ function LinkedList(props) {
                   autoComplete="off"
                 />
                 <div className="LinkedList-Node-options">
-                  <button id="Node-option">Insert</button>
+                  <button id="Node-option" onClick={()=>addNodeAt(index)}>Insert</button>
                   <button id="Node-option" onClick={() => deleteNode(index)}>Delete</button>
                 </div>
               </div>

@@ -5,12 +5,14 @@ import axios from "axios";
 import Stackstructure from "../../Stack/Stackstructure";
 import Queuestructure from "../../Queue/Queuestructure";
 import LinkedList from "../../LinkedList/LinkedList";
+import Set from "../../Set/Set";
 
 function Workspace(props) {
   const [arr, setArrays] = useState([]);
   const [stack, setStack] = useState([]);
   const [queue, setQueue] = useState([]);
   const [linkedList, setLinkedList] = useState([]);
+  const [set,setSet]=useState([]);
 
   useEffect(() => {
     axios
@@ -22,6 +24,7 @@ function Workspace(props) {
         setStack(result.data[0].Stacks);
         setQueue(result.data[0].Queues);
         setLinkedList(result.data[0].LinkedLists)
+        setSet(result.data[0].Sets)
       });
   });
   const createNewQueue = () => {
@@ -37,6 +40,7 @@ function Workspace(props) {
       typeOfArray: null,
       typeOfQueue: null,
       typeOfStack: null,
+      typeOfSet: null,
     });
   };
   const createNewStack = () => {
@@ -62,13 +66,22 @@ function Workspace(props) {
       });
   };
 
+  const createNewSet = () => {
+    makeAllNull();
+
+    axios.post("http://localhost:8800/updateAddNewSet").then((response) => {
+      console.log("Set added successfully");
+    });
+  };
+
   return (
     <div className="Workspace">
       {props.typeOfArray !== null &&
-        props.lengthOfArray > 0 &&
+        props.lengthOfArray > 0 && 
         createNewArray()}
       {props.typeOfQueue !== null && createNewQueue()}
       {props.typeOfStack !== null && createNewStack()}
+      {props.typeOfSet !== null && createNewSet()}
       <div className="Workspace-bar">
         {arr.length > 0 && (
           <p className="Workspace-bar-options">Array: {arr.length}</p>
@@ -81,6 +94,9 @@ function Workspace(props) {
         )}
         {linkedList.length>0 && (
           <p className="Workspace-bar-options">LinkedList: {linkedList.length}</p>
+        )}
+        {set.length > 0 && (
+          <p className="Workspace-bar-options">Set: {set.length}</p>
         )}
       </div>
       <div className="Workspace-Main">
@@ -122,6 +138,15 @@ function Workspace(props) {
             allQueues={queue}
           />
         ))}
+        {set.map((element, index) => (
+          <Set
+            setIndex={index}
+            set={element}
+            setset={setSet}
+            allSets={set}
+          />
+        ))}
+
       </div>
     </div>
   );
