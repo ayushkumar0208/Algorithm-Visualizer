@@ -37,12 +37,23 @@ function Workspace(props) {
       });
   };
 
+  const createNewLinkedList = () => {
+    makeAllNull();
+
+    axios
+      .post("http://localhost:8800/updateAddNewLinkedList/" + props.WorkspaceId)
+      .then((response) => {
+        console.log("LinkedList added successfully");
+      });
+  }
+
   const makeAllNull = () => {
     props.setState({
       typeOfArray: null,
       typeOfQueue: null,
       typeOfStack: null,
       typeOfSet: null,
+      typeOfLinkedList: null,
     });
   };
   const createNewStack = () => {
@@ -91,6 +102,7 @@ function Workspace(props) {
       {props.typeOfQueue !== null && createNewQueue()}
       {props.typeOfStack !== null && createNewStack()}
       {props.typeOfSet !== null && createNewSet()}
+      {/* {props.typeOfLinkedList !== null && createNewLinkedList()} */}
       <div className="Workspace-bar">
         {arr.length > 0 && (
           <p className="Workspace-bar-options">Array: {arr.length}</p>
