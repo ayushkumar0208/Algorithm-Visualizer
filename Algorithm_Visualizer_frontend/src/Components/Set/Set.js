@@ -40,7 +40,7 @@ function Set(props){
   const updateSetInDb = (newSet) => {
     axios
       .post(
-        "http://localhost:8800/updateStructure/Sets." + props.setIndex,
+        "http://localhost:8800/updateStructure/Sets." + props.setIndex+"/"+props.WorkspaceId,
         newSet
       )
       .then((response) => {
@@ -55,7 +55,7 @@ function Set(props){
     var SetObject = {};
     SetObject["Sets"] = props.allSets;
     axios
-      .post("http://localhost:8800/updateQueueAfterDelete", SetObject)
+      .post("http://localhost:8800/updateQueueAfterDelete/"+props.WorkspaceId, SetObject)
       .then((response) => {
         console.log("Set Deleted");
       });

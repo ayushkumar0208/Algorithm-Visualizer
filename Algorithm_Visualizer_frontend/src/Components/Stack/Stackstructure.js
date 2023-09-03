@@ -20,7 +20,7 @@ export default function Stackstructure(props) {
   const updateStackInDb = (newStack) => {
     axios
       .post(
-        "http://localhost:8800/updateStructure/Stacks." + props.stackIndex,
+        "http://localhost:8800/updateStructure/Stacks." + props.stackIndex+"/"+props.WorkspaceId,
         newStack
       )
       .then((response) => {
@@ -35,7 +35,7 @@ export default function Stackstructure(props) {
     var StackObject = {};
     StackObject["Stacks"] = props.allStacks;
     axios
-      .post("http://localhost:8800/updateStackAfterDelete", StackObject)
+      .post("http://localhost:8800/updateStackAfterDelete/"+props.WorkspaceId, StackObject)
       .then((response) => {
         console.log("Stack Deleted");
       });

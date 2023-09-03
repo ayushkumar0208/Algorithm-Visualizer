@@ -9,7 +9,7 @@ function LinkedList(props) {
   const addNode = () => {
     axios
       .post(
-        "http://localhost:8800/updateAddNewNode/LinkedLists." + props.listIndex
+        "http://localhost:8800/updateAddNewNode/LinkedLists." + props.listIndex+"/"+props.WorkspaceId
       )
       .then((response) => {
         console.log(response);
@@ -26,7 +26,7 @@ function LinkedList(props) {
     // props.setLinkedList(newList)
     axios
       .post(
-        "http://localhost:8800/updateIndex/LinkedLists." + props.listIndex,
+        "http://localhost:8800/updateIndex/LinkedLists." + props.listIndex+"/"+props.WorkspaceId,
         newList
       )
       .then((response) => {
@@ -41,7 +41,7 @@ function LinkedList(props) {
     }
     axios
       .post(
-        "http://localhost:8800/updateIndex/LinkedLists." + props.listIndex,
+        "http://localhost:8800/updateIndex/LinkedLists." + props.listIndex + "/" + props.WorkspaceId,
         props.LinkedList
       )
       .then((response) => {

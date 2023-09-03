@@ -43,9 +43,9 @@ const WorkSpaceSchema = new mongoose.Schema(
     LinkedLists: {
       type: [[mongoose.Schema.Types.Mixed]],
     },
-    Sets:{
+    Sets: {
       type: [[mongoose.Schema.Types.Mixed]],
-    }
+    },
   },
   { timestamps: true }
 );
@@ -171,9 +171,10 @@ app.post("/updateAddNewArrayType/:field/:id", (req, res) => {
   );
 });
 
-app.post("/updateAddNewStack", (req, res) => {
+app.post("/updateAddNewStack/:id", (req, res) => {
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { Stacks: [] } },
     (err, result) => {
       if (err) {
@@ -185,11 +186,11 @@ app.post("/updateAddNewStack", (req, res) => {
   );
 });
 
-app.post("/updateStackAfterDelete", (req, res) => {
+app.post("/updateStackAfterDelete/:id", (req, res) => {
   console.log(req.body);
-
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: req.body },
     (err, result) => {
       if (err) {
@@ -201,11 +202,10 @@ app.post("/updateStackAfterDelete", (req, res) => {
   );
 });
 
-
-
-app.post("/updateAddNewQueue", (req, res) => {
+app.post("/updateAddNewQueue/:id", (req, res) => {
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { Queues: [] } },
     (err, result) => {
       if (err) {
@@ -217,7 +217,7 @@ app.post("/updateAddNewQueue", (req, res) => {
   );
 });
 
-app.post("/updateStructure/:index", (req, res) => {
+app.post("/updateStructure/:index/:id", (req, res) => {
   //                       👇 Index of value to update
   //Here field => Arrays.1.0
   //                     👆ArrayIndex
@@ -226,8 +226,9 @@ app.post("/updateStructure/:index", (req, res) => {
   var newField = {};
   newField[indexValue] = req.body;
 
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: newField },
     (err, result) => {
       if (err) {
@@ -239,11 +240,11 @@ app.post("/updateStructure/:index", (req, res) => {
   );
 });
 
-app.post("/updateQueueAfterDelete", (req, res) => {
+app.post("/updateQueueAfterDelete/:id", (req, res) => {
   console.log(req.body);
-
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: req.body },
     (err, result) => {
       if (err) {
@@ -255,9 +256,10 @@ app.post("/updateQueueAfterDelete", (req, res) => {
   );
 });
 
-app.post("/updateAddNewLinkedList", (req, res) => {
+app.post("/updateAddNewLinkedList/:id", (req, res) => {
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { LinkedLists: [] } },
     (err, result) => {
       if (err) {
@@ -269,27 +271,25 @@ app.post("/updateAddNewLinkedList", (req, res) => {
   );
 });
 
-app.post("/updateAddNewNode/:path", (req, res) => {
+app.post("/updateAddNewNode/:path/:id", (req, res) => {
   // console.log(req.body);
   var Obj = {};
   Obj[req.params.path] = null;
   console.log(req.params.path);
-  WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
-    { $push: Obj },
-    (err, result) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
+  var Id = req.params.id;
+  WorkSpace.findOneAndUpdate({ name: Id }, { $push: Obj }, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
     }
-  );
+  });
 });
 
-app.post("/updateAddNewSet", (req, res) => {
+app.post("/updateAddNewSet/:id", (req, res) => {
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $push: { Sets: [] } },
     (err, result) => {
       if (err) {
@@ -301,11 +301,11 @@ app.post("/updateAddNewSet", (req, res) => {
   );
 });
 
-app.post("/updateStackAfterDelete", (req, res) => {
+app.post("/updateStackAfterDelete/:id", (req, res) => {
   console.log(req.body);
-
+  var Id = req.params.id;
   WorkSpace.findOneAndUpdate(
-    { name: "Workspace1" },
+    { name: Id },
     { $set: req.body },
     (err, result) => {
       if (err) {

@@ -3,7 +3,7 @@
     width:100%;
     height: 100vh;
     margin-top: 0%;
-    background-color: #E8E7E7;
+    background-color: #f1f1f1;
 }
 .Menu-title{
     height:30%;
@@ -24,3 +24,25 @@
     background-color: rgb(73, 73, 232);
 }
 
+#Menu-input{
+    display: flex;
+    justify-content: center;
+    align-self:center ;
+    margin: auto;
+    padding: 1vw;
+    border-radius: 2vw;
+}
+
+#Menu-join-button{
+    
+    margin: auto;
+    margin-top: 1vw;
+    display: flex;
+    align-self: center;
+    padding: .5vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    border-radius: 2vw;
+    color: rgb(247, 247, 247);
+    background-color: rgb(73, 73, 232);
+}

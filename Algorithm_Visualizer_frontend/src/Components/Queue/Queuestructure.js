@@ -47,7 +47,7 @@ export default function Queuestructure(props) {
   const updateQueueInDb = (newQueue) => {
     axios
       .post(
-        "http://localhost:8800/updateStructure/Queues." + props.queueIndex,
+        "http://localhost:8800/updateStructure/Queues." + props.queueIndex+"/"+props.WorkspaceId,
         newQueue
       )
       .then((response) => {
@@ -62,7 +62,7 @@ export default function Queuestructure(props) {
     var QueueObject = {};
     QueueObject["Queues"] = props.allQueues;
     axios
-      .post("http://localhost:8800/updateQueueAfterDelete", QueueObject)
+      .post("http://localhost:8800/updateQueueAfterDelete/"+props.WorkspaceId, QueueObject)
       .then((response) => {
         console.log("Queue Deleted");
       });

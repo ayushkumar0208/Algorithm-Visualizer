@@ -6,6 +6,7 @@ import './Menu.css'
 function Menu() {
     const navigate  = useNavigate();
     const [Id,setId] = useState("");
+    const [joinId,setJoinId] = useState("");
     const generateWorkspaceId = () =>{
         const randomNumber = Math.floor(Math.random() * 100000000);
         const id =  randomNumber.toString().padStart(8, '0');
@@ -24,7 +25,9 @@ function Menu() {
         navigate('/Home', {state: idToRedirect});
       };
 
-
+    const joinWorkspace = () => {
+        navigate('/Home', {state: joinId});
+    }
 
   return (
     <div className='Menu'>
@@ -34,8 +37,11 @@ function Menu() {
         <button id="Menu-Create-button" onClick={() => {generateWorkspaceId()}}>Create</button>
 
         <hr/>
-
-        <input type="text" id="Menu-input"></input>
+        <div className='Menu-title'>
+            <h1>Join Workspace, Enter Code</h1>
+        </div>
+        <input type="text" id="Menu-input" name={joinId} placeholder='Enter Workspace Code' onChange={(e) => setJoinId(e.target.value)}></input>
+        <button id='Menu-join-button' onClick={() => {joinWorkspace()}}>Join</button>
     </div>
   )
 }

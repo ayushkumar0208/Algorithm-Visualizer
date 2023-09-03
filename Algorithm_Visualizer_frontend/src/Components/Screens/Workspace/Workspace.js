@@ -12,27 +12,29 @@ function Workspace(props) {
   const [stack, setStack] = useState([]);
   const [queue, setQueue] = useState([]);
   const [linkedList, setLinkedList] = useState([]);
-  const [set,setSet]=useState([]);
+  const [set, setSet] = useState([]);
 
   useEffect(() => {
     axios
-      .post("http://localhost:8800/Workspace/"+props.WorkspaceId)
+      .post("http://localhost:8800/Workspace/" + props.WorkspaceId)
 
       .then((result) => {
         // console.log(result)
         setArrays(result.data[0].Arrays);
         setStack(result.data[0].Stacks);
         setQueue(result.data[0].Queues);
-        setLinkedList(result.data[0].LinkedLists)
-        setSet(result.data[0].Sets)
+        setLinkedList(result.data[0].LinkedLists);
+        setSet(result.data[0].Sets);
       });
   });
   const createNewQueue = () => {
     makeAllNull();
 
-    axios.post("http://localhost:8800/updateAddNewQueue").then((response) => {
-      console.log("Queue added successfully");
-    });
+    axios
+      .post("http://localhost:8800/updateAddNewQueue/" + props.WorkspaceId)
+      .then((response) => {
+        console.log("Queue added successfully");
+      });
   };
 
   const makeAllNull = () => {
@@ -46,9 +48,11 @@ function Workspace(props) {
   const createNewStack = () => {
     makeAllNull();
 
-    axios.post("http://localhost:8800/updateAddNewStack").then((response) => {
-      console.log("Stack added successfully");
-    });
+    axios
+      .post("http://localhost:8800/updateAddNewStack/" + props.WorkspaceId)
+      .then((response) => {
+        console.log("Stack added successfully");
+      });
   };
 
   const createNewArray = () => {
@@ -60,7 +64,10 @@ function Workspace(props) {
     }
 
     axios
-      .post("http://localhost:8800/updateAddNewArray/"+props.WorkspaceId, arrayToAdd)
+      .post(
+        "http://localhost:8800/updateAddNewArray/" + props.WorkspaceId,
+        arrayToAdd
+      )
       .then((response) => {
         console.log("Array added successfully");
       });
@@ -69,15 +76,17 @@ function Workspace(props) {
   const createNewSet = () => {
     makeAllNull();
 
-    axios.post("http://localhost:8800/updateAddNewSet").then((response) => {
-      console.log("Set added successfully");
-    });
+    axios
+      .post("http://localhost:8800/updateAddNewSet/" + props.WorkspaceId)
+      .then((response) => {
+        console.log("Set added successfully");
+      });
   };
 
   return (
     <div className="Workspace">
       {props.typeOfArray !== null &&
-        props.lengthOfArray > 0 && 
+        props.lengthOfArray > 0 &&
         createNewArray()}
       {props.typeOfQueue !== null && createNewQueue()}
       {props.typeOfStack !== null && createNewStack()}
@@ -92,8 +101,10 @@ function Workspace(props) {
         {queue.length > 0 && (
           <p className="Workspace-bar-options">Queue: {queue.length}</p>
         )}
-        {linkedList.length>0 && (
-          <p className="Workspace-bar-options">LinkedList: {linkedList.length}</p>
+        {linkedList.length > 0 && (
+          <p className="Workspace-bar-options">
+            LinkedList: {linkedList.length}
+          </p>
         )}
         {set.length > 0 && (
           <p className="Workspace-bar-options">Set: {set.length}</p>
@@ -116,7 +127,7 @@ function Workspace(props) {
             arrayTypes={props.arrayTypes}
             dataType={props.arrayTypes[index]}
             setArrays={setArrays}
-            WorkspaceId = {props.WorkspaceId}
+            WorkspaceId={props.WorkspaceId}
           />
         ))}
 
@@ -128,6 +139,7 @@ function Workspace(props) {
             allStacks={stack}
             stackTypes={props.stackTypes}
             dataType={props.stackTypes[index]}
+            WorkspaceId={props.WorkspaceId}
           />
         ))}
 
@@ -137,6 +149,7 @@ function Workspace(props) {
             queue={element}
             setQueue={setQueue}
             allQueues={queue}
+            WorkspaceId={props.WorkspaceId}
           />
         ))}
         {set.map((element, index) => (
@@ -145,9 +158,9 @@ function Workspace(props) {
             set={element}
             setset={setSet}
             allSets={set}
+            WorkspaceId={props.WorkspaceId}
           />
         ))}
-
       </div>
     </div>
   );
