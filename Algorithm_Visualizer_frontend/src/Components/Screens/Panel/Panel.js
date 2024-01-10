@@ -417,6 +417,7 @@ function Panel(props) {
             setTypes={setTypes}
             typeOfSet={state.typeOfSet}
             WorkspaceId={location.state}
+            typeOfLinkedList = {state.typeOfLinkedList}
           />
           {/* <LinkedList/> */}
         </div>

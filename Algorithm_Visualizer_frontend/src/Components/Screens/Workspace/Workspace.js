@@ -37,6 +37,17 @@ function Workspace(props) {
       });
   };
 
+  
+
+  const makeAllNull = () => {
+    props.setState({
+      typeOfArray: null,
+      typeOfQueue: null,
+      typeOfStack: null,
+      typeOfSet: null,
+      typeOfLinkedList: null
+    });
+  };
   const createNewLinkedList = () => {
     makeAllNull();
 
@@ -46,16 +57,6 @@ function Workspace(props) {
         console.log("LinkedList added successfully");
       });
   }
-
-  const makeAllNull = () => {
-    props.setState({
-      typeOfArray: null,
-      typeOfQueue: null,
-      typeOfStack: null,
-      typeOfSet: null,
-      typeOfLinkedList: null,
-    });
-  };
   const createNewStack = () => {
     makeAllNull();
 
@@ -102,7 +103,7 @@ function Workspace(props) {
       {props.typeOfQueue !== null && createNewQueue()}
       {props.typeOfStack !== null && createNewStack()}
       {props.typeOfSet !== null && createNewSet()}
-      {/* {props.typeOfLinkedList !== null && createNewLinkedList()} */}
+      {props.typeOfLinkedList !== null && createNewLinkedList()}
       <div className="Workspace-bar">
         {arr.length > 0 && (
           <p className="Workspace-bar-options">Array: {arr.length}</p>
